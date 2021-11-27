@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AppmaloteApplication {
+public class AppMaloteApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AppmaloteApplication.class, args);
+		SpringApplication.run(AppMaloteApplication.class, args);
 	}
 
 }
