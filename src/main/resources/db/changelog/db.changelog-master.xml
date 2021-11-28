@@ -1,0 +1,31 @@
+<databaseChangeLog 
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
+   http://www.liquibase.org/xml/ns/dbchangelog 
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    
+    <changeSet author="Gabriel Rossi Lopes" id="202011271826">
+	    <preConditions onFail="MARK_RAN">
+	       <not>
+	         <tableExists tableName="usuario"/>
+	       </not> 
+		</preConditions>
+        <createTable tableName="usuario">
+        	<column name="id" type="long">
+        		<constraints primaryKey="true" />
+        	</column>
+            <column name="email" type="varchar(255)" />
+            <column name="senha" type="varchar(255)" />
+            <column name="empresa_id" type="long" />
+        </createTable>
+        <insert tableName="usuario">  
+        	<column  name="id"  value="0"/>
+        	<column  name="email"  value="admin@admin.com"/>
+        	<column  name="senha"  value="123"/>    
+    	</insert>  
+    </changeSet>
+    
+</databaseChangeLog>

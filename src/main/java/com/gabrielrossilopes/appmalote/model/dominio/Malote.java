@@ -5,8 +5,12 @@ import java.util.List;
 public class Malote {
 	
 	private Integer id;
+	
+
 	private Empresa empresa;
+	
 	private List<Transacao> transacoes;
+	
 	public Integer getId() {
 		return id;
 	}
