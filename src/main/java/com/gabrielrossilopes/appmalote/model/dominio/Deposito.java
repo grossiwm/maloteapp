@@ -3,6 +3,9 @@ package com.gabrielrossilopes.appmalote.model.dominio;
 import com.gabrielrossilopes.appmalote.model.enums.TipoTransacao;
 import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
 
+import exception.CpfInvalidoException;
+import utils.ValidationUtils;
+
 public class Deposito extends Transacao {
 	
 	private String cpfBenefiaciario;
@@ -23,7 +26,10 @@ public class Deposito extends Transacao {
 	public String getCpfBenefiaciario() {
 		return cpfBenefiaciario;
 	}
-	public void setCpfBenefiaciario(String cpfBenefiaciario) {
+	public void setCpfBenefiaciario(String cpfBenefiaciario) throws CpfInvalidoException {
+		if (!ValidationUtils.validaCPF(cpfBenefiaciario))
+			throw new CpfInvalidoException("Cpf " + cpfBenefiaciario + " inválido");
+		
 		this.cpfBenefiaciario = cpfBenefiaciario;
 	}
 	public String getNomeBeneficiario() {
@@ -33,7 +39,7 @@ public class Deposito extends Transacao {
 		this.nomeBeneficiario = nomeBeneficiario;
 	}
 	@Override
-	protected TipoTransacao getTipoTransacao() {
+	public TipoTransacao getTipoTransacao() {
 		return TipoTransacao.DEPOSITO;
 	}
 	

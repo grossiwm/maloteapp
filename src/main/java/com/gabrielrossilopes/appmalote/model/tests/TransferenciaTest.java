@@ -2,11 +2,31 @@ package com.gabrielrossilopes.appmalote.model.tests;
 
 import com.gabrielrossilopes.appmalote.model.dominio.Transferencia;
 
+import exception.ContaInvalidaException;
+
 public class TransferenciaTest {
 
 	public static void main(String[] args) {
 
-		Transferencia transacao = new Transferencia();
+		Transferencia transferencia = new Transferencia();
+		
+		try {
+			transferencia.setContaDestino("7");
+		} catch (ContaInvalidaException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			transferencia.setContaDestino("72662-x");
+		} catch (ContaInvalidaException e) {
+			e.printStackTrace();
+		}
+		
+		transferencia.setContaOrigem("123132-x");
+		
+		System.out.println(transferencia);
+		
+		System.out.println(transferencia.getTipoTransacao());
 	}
 
 }

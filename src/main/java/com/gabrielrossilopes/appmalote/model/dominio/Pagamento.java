@@ -3,6 +3,9 @@ package com.gabrielrossilopes.appmalote.model.dominio;
 import com.gabrielrossilopes.appmalote.model.enums.TipoTransacao;
 import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
 
+import exception.CnpjInvalidoException;
+import utils.ValidationUtils;
+
 public class Pagamento extends Transacao {
 	
 	private String cnpjRecebedor;
@@ -18,11 +21,14 @@ public class Pagamento extends Transacao {
 	public String getCnpjRecebedor() {
 		return cnpjRecebedor;
 	}
-	public void setCnpjRecebedor(String cnpjRecebedor) {
+	public void setCnpjRecebedor(String cnpjRecebedor) throws CnpjInvalidoException {
+		if (!ValidationUtils.validaCNPJ(cnpjRecebedor))
+			throw new CnpjInvalidoException("cnpj " + cnpjRecebedor + " inválido");
+		
 		this.cnpjRecebedor = cnpjRecebedor;
 	}
 	@Override
-	protected TipoTransacao getTipoTransacao() {
+	public TipoTransacao getTipoTransacao() {
 		return TipoTransacao.PAGAMENTO;
 	}
 	

@@ -1,5 +1,8 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Empresa {
 	
 	private Integer id;
@@ -7,6 +10,14 @@ public class Empresa {
 	private String cnpj;
 	
 	private String nome;
+	
+	private List<Malote> malotes;
+	
+	
+
+	public Empresa() {
+		malotes = new ArrayList<>();
+	}
 
 	public String getCnpj() {
 		return cnpj;
@@ -32,6 +43,18 @@ public class Empresa {
 		this.id = id;
 	}
 	
+	public List<Malote> getMalotes() {
+		return new ArrayList<>(malotes);
+	}
+
+	public void addMalote(Malote malote) {
+		malotes.add(malote);
+	}
+	
+	public void addMalotes(List<Malote> malotes) {
+		this.malotes.addAll(malotes);
+	}
+
 	@Override
 	public String toString() {
 		return new StringBuilder().append(id).append(";").append(nome).append(";").append(cnpj).toString();
