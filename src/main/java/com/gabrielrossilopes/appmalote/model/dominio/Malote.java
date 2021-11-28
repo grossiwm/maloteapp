@@ -1,9 +1,25 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Malote {
 	
+	
+	
+	public Malote(Integer id, Empresa empresa, List<Transacao> transacoes, LocalDateTime data) {
+		this.id = id;
+		this.empresa = empresa;
+		this.transacoes = transacoes;
+		this.data = LocalDateTime.now();
+	}
+	
+	public Malote() {
+		this.data = LocalDateTime.now();
+	}
+
+
 	private Integer id;
 	
 
@@ -11,6 +27,11 @@ public class Malote {
 	
 	private List<Transacao> transacoes;
 	
+	private LocalDateTime data;
+	
+	public LocalDateTime getData() {
+		return data;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -28,6 +49,13 @@ public class Malote {
 	}
 	public void setTransacoes(List<Transacao> transacoes) {
 		this.transacoes = transacoes;
+	}
+	
+	@Override
+	public String toString() {
+		
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+		return String.format("%s; %s; %s", id, empresa, formato.format(data));
 	}
 
 }

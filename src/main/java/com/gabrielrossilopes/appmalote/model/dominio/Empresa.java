@@ -31,5 +31,11 @@ public class Empresa {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	@Override
+	public String toString() {
+		return new StringBuilder().append(id).append(";").append(nome).append(";").append(cnpj).toString();
+		
+	}
 
 }
