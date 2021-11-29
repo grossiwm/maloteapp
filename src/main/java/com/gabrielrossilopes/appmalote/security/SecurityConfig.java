@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/usuario/cadastrar").permitAll()
                 .antMatchers("/css/**", "/img/**", "/js/**").permitAll()
                 .antMatchers("/").permitAll()
+                .antMatchers("/admin/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -38,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
         
         http.csrf().disable();
+        
 
     }
     

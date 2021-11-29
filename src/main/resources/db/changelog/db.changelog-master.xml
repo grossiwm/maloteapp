@@ -20,12 +20,52 @@
             <column name="email" type="varchar(255)" />
             <column name="senha" type="varchar(255)" />
             <column name="empresa_id" type="long" />
+            <column name="admin" type="boolean" />
         </createTable>
+        	<addAutoIncrement 
+			columnDataType="long"
+			columnName="id" 
+			incrementBy="1"    
+			tableName="usuario"/> 
+        <createTable tableName="empresa">
+        	<column name="id" type="long">
+        		<constraints primaryKey="true" />
+        	</column>
+            <column name="cnpj" type="varchar(255)" />
+            <column name="nome" type="varchar(255)" />
+        </createTable>    	
+       	<addAutoIncrement 
+			columnDataType="long"
+			columnName="id" 
+			incrementBy="1"    
+			tableName="empresa"/>  
+		<!-- seed usuarios -->
         <insert tableName="usuario">  
-        	<column  name="id"  value="0"/>
         	<column  name="email"  value="admin@admin.com"/>
         	<column  name="senha"  value="12345678"/>    
+        	<column  name="admin"  value="true"/> 
+    	</insert>
+ 	    <insert tableName="usuario">  
+        	<column  name="email"  value="fulaninho"/>
+        	<column  name="senha"  value="123"/>    
+        	<column  name="admin"  value="false"/> 
+        	<column  name="empresa_id"  value="1"/>
+    	</insert>
+  	 	<insert tableName="usuario">  
+        	<column  name="email"  value="rodriguinho"/>
+        	<column  name="senha"  value="123"/>    
+        	<column  name="admin"  value="false"/> 
+        	<column  name="empresa_id"  value="1"/>
     	</insert>  
+    	<!-- seed empresas -->
+ 	    <insert tableName="empresa">  
+        	<column  name="nome"  value="ecorp"/>
+        	<column  name="cnpj"  value="36178046000142"/>
+    	</insert>   
+    	<insert tableName="empresa">  
+        	<column  name="nome"  value="cjv consultoria"/>
+        	<column  name="cnpj"  value="54325282000126"/>
+    	</insert>          
     </changeSet>
     
 </databaseChangeLog>

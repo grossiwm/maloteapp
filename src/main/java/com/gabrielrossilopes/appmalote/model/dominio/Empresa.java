@@ -3,17 +3,32 @@ package com.gabrielrossilopes.appmalote.model.dominio;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
+@Entity(name="empresa")
 public class Empresa {
 	
-	private Integer id;
-	
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+	private Long id;
+    
+    @Column
 	private String cnpj;
 	
+    @Column
 	private String nome;
 	
+    @Transient
 	private List<Malote> malotes;
 	
-	
+    @OneToMany
+	private List<Usuario> usuarios; 
 
 	public Empresa() {
 		malotes = new ArrayList<>();
@@ -35,11 +50,11 @@ public class Empresa {
 		this.nome = nome;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
