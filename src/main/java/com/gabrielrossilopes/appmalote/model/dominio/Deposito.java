@@ -1,9 +1,9 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
+import com.gabrielrossilopes.appmalote.exception.CpfInvalidoException;
 import com.gabrielrossilopes.appmalote.model.enums.TipoTransacao;
 import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
 
-import exception.CpfInvalidoException;
 import utils.ValidationUtils;
 
 public class Deposito extends Transacao {

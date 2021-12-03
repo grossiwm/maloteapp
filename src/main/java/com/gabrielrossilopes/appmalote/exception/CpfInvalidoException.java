@@ -1,4 +1,4 @@
-package exception;
+package com.gabrielrossilopes.appmalote.exception;
 
 public class CpfInvalidoException extends Exception {
 

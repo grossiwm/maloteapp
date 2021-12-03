@@ -1,9 +1,9 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
+import com.gabrielrossilopes.appmalote.exception.ContaInvalidaException;
 import com.gabrielrossilopes.appmalote.model.enums.TipoTransacao;
 import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
 
-import exception.ContaInvalidaException;
 import utils.ValidationUtils;
 
 public class Transferencia extends Transacao {

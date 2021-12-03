@@ -1,8 +1,7 @@
 package com.gabrielrossilopes.appmalote.model.tests;
 
+import com.gabrielrossilopes.appmalote.exception.CnpjInvalidoException;
 import com.gabrielrossilopes.appmalote.model.dominio.Pagamento;
-
-import exception.CnpjInvalidoException;
 
 public class PagamentoTest {
 

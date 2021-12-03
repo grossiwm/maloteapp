@@ -1,8 +1,7 @@
 package com.gabrielrossilopes.appmalote.model.tests;
 
+import com.gabrielrossilopes.appmalote.exception.ContaInvalidaException;
 import com.gabrielrossilopes.appmalote.model.dominio.Transferencia;
-
-import exception.ContaInvalidaException;
 
 public class TransferenciaTest {
 

@@ -1,8 +1,7 @@
 package com.gabrielrossilopes.appmalote.model.tests;
 
+import com.gabrielrossilopes.appmalote.exception.CpfInvalidoException;
 import com.gabrielrossilopes.appmalote.model.dominio.Deposito;
-
-import exception.CpfInvalidoException;
 
 public class DepositoTest {
 	

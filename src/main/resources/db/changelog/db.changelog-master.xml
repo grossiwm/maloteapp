@@ -42,7 +42,7 @@
 		<!-- seed usuarios -->
         <insert tableName="usuario">  
         	<column  name="email"  value="admin@admin.com"/>
-        	<column  name="senha"  value="12345678"/>    
+        	<column  name="senha"  value="123"/>    
         	<column  name="admin"  value="true"/> 
     	</insert>
  	    <insert tableName="usuario">  
