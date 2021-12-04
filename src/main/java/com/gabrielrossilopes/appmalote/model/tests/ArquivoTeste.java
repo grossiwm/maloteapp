@@ -93,6 +93,7 @@ public class ArquivoTeste {
 
         Malote malote = criaMalote();
         escreveArquivoMalote(malote);
+        System.out.println("Escrito em arquivo_out");
     }
 
     private static Malote criaMalote() {
