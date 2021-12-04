@@ -9,13 +9,13 @@ public class DepositoTest {
 		Deposito deposito = new Deposito();
 		
 		try {
-			deposito.setCpfBenefiaciario("501135");
+			deposito.setCpfBeneficiario("501135");
 		} catch (CpfInvalidoException e) {
 			e.printStackTrace();
 		}
 		
 		try {
-			deposito.setCpfBenefiaciario("50112122035");
+			deposito.setCpfBeneficiario("50112122035");
 		} catch (CpfInvalidoException e) {
 			e.printStackTrace();
 		}

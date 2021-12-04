@@ -26,6 +26,6 @@ public abstract class Transacao {
 		
 	}
 	
-	protected abstract TipoTransacao getTipoTransacao();
+	public abstract TipoTransacao getTipoTransacao();
 	
 }

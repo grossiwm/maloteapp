@@ -22,7 +22,6 @@ public class Malote {
 
 
 	private Integer id;
-	
 
 	private Empresa empresa;
 	

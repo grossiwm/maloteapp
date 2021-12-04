@@ -8,7 +8,7 @@ import com.gabrielrossilopes.appmalote.utils.ValidationUtils;
 
 public class Deposito extends Transacao {
 	
-	private String cpfBenefiaciario;
+	private String cpfBeneficiario;
 	private String nomeBeneficiario;
 	
 	
@@ -23,14 +23,14 @@ public class Deposito extends Transacao {
 		this.status = status;
 	}
 	
-	public String getCpfBenefiaciario() {
-		return cpfBenefiaciario;
+	public String getCpfBeneficiario() {
+		return cpfBeneficiario;
 	}
-	public void setCpfBenefiaciario(String cpfBenefiaciario) throws CpfInvalidoException {
-		if (!ValidationUtils.validaCPF(cpfBenefiaciario))
-			throw new CpfInvalidoException("Cpf " + cpfBenefiaciario + " inválido");
+	public void setCpfBeneficiario(String cpfBeneficiario) throws CpfInvalidoException {
+		if (!ValidationUtils.validaCPF(cpfBeneficiario))
+			throw new CpfInvalidoException("Cpf " + cpfBeneficiario + " inválido");
 		
-		this.cpfBenefiaciario = cpfBenefiaciario;
+		this.cpfBeneficiario = cpfBeneficiario;
 	}
 	public String getNomeBeneficiario() {
 		return nomeBeneficiario;
@@ -45,7 +45,7 @@ public class Deposito extends Transacao {
 	
 	@Override
 	public String toString() {
-		return new StringBuilder().append(super.toString()).append(";").append(cpfBenefiaciario).append(";").append(nomeBeneficiario).toString();
+		return new StringBuilder().append(super.toString()).append(";").append(cpfBeneficiario).append(";").append(nomeBeneficiario).toString();
 	}
 
 }
