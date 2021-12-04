@@ -4,7 +4,7 @@ import com.gabrielrossilopes.appmalote.exception.CpfInvalidoException;
 import com.gabrielrossilopes.appmalote.model.enums.TipoTransacao;
 import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
 
-import utils.ValidationUtils;
+import com.gabrielrossilopes.appmalote.utils.ValidationUtils;
 
 public class Deposito extends Transacao {
 	

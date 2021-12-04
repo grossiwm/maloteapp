@@ -46,13 +46,13 @@
         	<column  name="admin"  value="true"/> 
     	</insert>
  	    <insert tableName="usuario">  
-        	<column  name="email"  value="fulaninho"/>
+        	<column  name="email"  value="fulaninho@gmail.com"/>
         	<column  name="senha"  value="123"/>    
         	<column  name="admin"  value="false"/> 
         	<column  name="empresa_id"  value="1"/>
     	</insert>
   	 	<insert tableName="usuario">  
-        	<column  name="email"  value="rodriguinho"/>
+        	<column  name="email"  value="rodrigo@gmail.com"/>
         	<column  name="senha"  value="123"/>    
         	<column  name="admin"  value="false"/> 
         	<column  name="empresa_id"  value="1"/>

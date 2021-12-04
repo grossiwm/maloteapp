@@ -9,6 +9,8 @@ public class UsuarioLogadoSession {
     private Long id;
 
     private String email;
+    
+    private boolean admin;
 
 	public Long getId() {
 		return id;
@@ -24,6 +26,14 @@ public class UsuarioLogadoSession {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
     
 }

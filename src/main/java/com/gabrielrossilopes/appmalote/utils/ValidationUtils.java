@@ -1,4 +1,4 @@
-package utils;
+package com.gabrielrossilopes.appmalote.utils;
 
 public class ValidationUtils {
 
