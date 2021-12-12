@@ -1,15 +1,13 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity(name="empresa")
 public class Empresa {
@@ -28,6 +26,8 @@ public class Empresa {
 	private List<Malote> malotes;
 	
     @OneToMany
+	@JoinColumn(name = "empresa_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<Usuario> usuarios; 
 
 	public Empresa() {
@@ -68,6 +68,18 @@ public class Empresa {
 	
 	public void addMalotes(List<Malote> malotes) {
 		this.malotes.addAll(malotes);
+	}
+
+	public void setMalotes(List<Malote> malotes) {
+		this.malotes = malotes;
+	}
+
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 	@Override

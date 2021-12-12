@@ -7,11 +7,11 @@
    http://www.liquibase.org/xml/ns/dbchangelog 
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     
-    <changeSet author="Gabriel Rossi Lopes" id="202011271826">
+    <changeSet author="Gabriel Rossi Lopes" id="1">
 	    <preConditions onFail="MARK_RAN">
 	       <not>
 	         <tableExists tableName="usuario"/>
-	       </not> 
+	       </not>
 		</preConditions>
         <createTable tableName="usuario">
         	<column name="id" type="long">
@@ -21,51 +21,96 @@
             <column name="senha" type="varchar(255)" />
             <column name="empresa_id" type="long" />
             <column name="admin" type="boolean" />
+			<column name="aceito" type="boolean" />
         </createTable>
-        	<addAutoIncrement 
+        	<addAutoIncrement
 			columnDataType="long"
-			columnName="id" 
-			incrementBy="1"    
-			tableName="usuario"/> 
+			columnName="id"
+			incrementBy="1"
+			tableName="usuario"/>
+	</changeSet>
+	<changeSet author="Gabriel Rossi Lopes" id="2">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="empresa"/>
+			</not>
+		</preConditions>
         <createTable tableName="empresa">
         	<column name="id" type="long">
         		<constraints primaryKey="true" />
         	</column>
             <column name="cnpj" type="varchar(255)" />
             <column name="nome" type="varchar(255)" />
-        </createTable>    	
-       	<addAutoIncrement 
+        </createTable>
+       	<addAutoIncrement
 			columnDataType="long"
-			columnName="id" 
-			incrementBy="1"    
-			tableName="empresa"/>  
+			columnName="id"
+			incrementBy="1"
+			tableName="empresa"/>
+	</changeSet>
+	<changeSet author="Gabriel Rossi Lopes" id="3">
+		<!-- seed empresas -->
+		<insert tableName="empresa">
+			<column  name="nome"  value="ecorp"/>
+			<column  name="cnpj"  value="36178046000142"/>
+		</insert>
+		<insert tableName="empresa">
+			<column  name="nome"  value="cjv consultoria"/>
+			<column  name="cnpj"  value="54325282000126"/>
+		</insert>
+	</changeSet>
+	<changeSet author="Gabriel Rossi Lopes" id="4">
 		<!-- seed usuarios -->
-        <insert tableName="usuario">  
+        <insert tableName="usuario">
         	<column  name="email"  value="admin@admin.com"/>
-        	<column  name="senha"  value="123"/>    
-        	<column  name="admin"  value="true"/> 
+        	<column  name="senha"  value="123"/>
+        	<column  name="admin"  value="true"/>
     	</insert>
- 	    <insert tableName="usuario">  
+ 	    <insert tableName="usuario">
         	<column  name="email"  value="fulaninho@gmail.com"/>
-        	<column  name="senha"  value="123"/>    
-        	<column  name="admin"  value="false"/> 
+        	<column  name="senha"  value="123"/>
+        	<column  name="admin"  value="false"/>
         	<column  name="empresa_id"  value="1"/>
+			<column  name="aceito"  value="true"/>
     	</insert>
-  	 	<insert tableName="usuario">  
+  	 	<insert tableName="usuario">
         	<column  name="email"  value="rodrigo@gmail.com"/>
-        	<column  name="senha"  value="123"/>    
-        	<column  name="admin"  value="false"/> 
+        	<column  name="senha"  value="123"/>
+        	<column  name="admin"  value="false"/>
         	<column  name="empresa_id"  value="1"/>
-    	</insert>  
-    	<!-- seed empresas -->
- 	    <insert tableName="empresa">  
-        	<column  name="nome"  value="ecorp"/>
-        	<column  name="cnpj"  value="36178046000142"/>
-    	</insert>   
-    	<insert tableName="empresa">  
-        	<column  name="nome"  value="cjv consultoria"/>
-        	<column  name="cnpj"  value="54325282000126"/>
-    	</insert>          
-    </changeSet>
+			<column  name="aceito"  value="true"/>
+    	</insert>
+		<insert tableName="usuario">
+			<column  name="email"  value="danielle@gmail.com"/>
+			<column  name="senha"  value="123"/>
+			<column  name="admin"  value="false"/>
+			<column  name="empresa_id"  value="1"/>
+			<column  name="aceito"  value="false"/>
+		</insert>
+		<insert tableName="usuario">
+			<column  name="email"  value="beltrano@gmail.com"/>
+			<column  name="senha"  value="123"/>
+			<column  name="admin"  value="false"/>
+			<column  name="empresa_id"  value="1"/>
+			<column  name="aceito"  value="false"/>
+		</insert>
+		<insert tableName="usuario">
+			<column  name="email"  value="lenon@gmail.com"/>
+			<column  name="senha"  value="123"/>
+			<column  name="admin"  value="false"/>
+			<column  name="empresa_id"  value="1"/>
+			<column  name="aceito"  value="false"/>
+		</insert>
+	</changeSet>
+<!--	<changeSet id="5" author="Gabriel Rossi Lopes">-->
+<!--		<preConditions onFail="MARK_RAN">-->
+<!--			<foreignKeyConstraintExists foreignKeyName="fk_foo_bar"/>-->
+<!--		</preConditions>-->
+<!--		<dropForeignKeyConstraint baseTableName="table_foo" constraintName="fk_foo_bar"/>-->
+<!--		<addForeignKeyConstraint baseTableName="table_foo" baseColumnNames="foo_col"-->
+<!--								 constraintName="fk_foo_bar"-->
+<!--								 referencedTableName="table_bar" referencedColumnNames="bar_col"-->
+<!--								 onDelete="SET NULL"/>-->
+<!--	</changeSet>-->
     
 </databaseChangeLog>

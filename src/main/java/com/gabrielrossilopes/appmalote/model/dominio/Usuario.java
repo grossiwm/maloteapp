@@ -2,13 +2,7 @@ package com.gabrielrossilopes.appmalote.model.dominio;
 
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity(name="usuario")
 public class Usuario {
@@ -24,13 +18,29 @@ public class Usuario {
 	private String senha;
     
     @Column
-    private boolean admin;
+    private Boolean admin;
     
-    @ManyToOne
+	@ManyToOne
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
-	
-	
+
+	@Column
+	private Boolean aceito;
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
+	public Boolean isAceito() {
+		if (Objects.isNull(aceito))
+			return false;
+		return aceito;
+	}
+
+	public void setAceito(boolean aceito) {
+		this.aceito = aceito;
+	}
+
 	public Empresa getEmpresa() {
 		return empresa;
 	}
@@ -63,7 +73,7 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public boolean isAdmin() {
+	public Boolean isAdmin() {
 		if (Objects.isNull(admin))
 			return false;
 		return admin;

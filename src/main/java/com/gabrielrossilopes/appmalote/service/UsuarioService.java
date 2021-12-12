@@ -17,6 +17,10 @@ public class UsuarioService {
     public Optional<Usuario> getUsuarioByEmail(String email) {
         return usuarioRepository.findByEmail(email);
     }
+
+    public Optional<Usuario> getUsuarioById(Long id) {
+        return usuarioRepository.findById(id);
+    }
     
     public Usuario cadastrarUsuario(Usuario usuario) {
         return usuarioRepository.save(usuario);
@@ -24,6 +28,16 @@ public class UsuarioService {
     
     public List<Usuario> busucaTodos() {
     	return usuarioRepository.findAll();
+    }
+
+    public void aceitarUsuario(long id) {
+        Usuario usuario = usuarioRepository.findById(id).get();
+        usuario.setAceito(true);
+        usuarioRepository.save(usuario);
+    }
+
+    public void removeUsuario(Usuario usuario) {
+        usuarioRepository.delete(usuario);
     }
 
 }

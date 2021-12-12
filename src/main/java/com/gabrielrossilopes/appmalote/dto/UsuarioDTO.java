@@ -1,6 +1,11 @@
 package com.gabrielrossilopes.appmalote.dto;
 
+import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
+import liquibase.pro.packaged.U;
+
 public class UsuarioDTO {
+
+	private Long id;
 	
 	private String email;
 	
@@ -32,4 +37,21 @@ public class UsuarioDTO {
 		this.empresa = empresaId;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public static UsuarioDTO getUsuarioDTOdeUsuario(Usuario usuario) {
+		UsuarioDTO usuarioDTO = new UsuarioDTO();
+		usuarioDTO.setEmail(usuario.getEmail());
+		usuarioDTO.setEmpresa(usuario.getEmpresa().getId());
+		usuarioDTO.setSenha(usuario.getSenha());
+		usuarioDTO.setId(usuario.getId());
+
+		return usuarioDTO;
+	}
 }

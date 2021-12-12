@@ -3,6 +3,8 @@ package com.gabrielrossilopes.appmalote.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.gabrielrossilopes.appmalote.dto.EmpresaDTO;
+import com.gabrielrossilopes.appmalote.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ public class EmpresaService {
 
 	@Autowired
 	private EmpresaRepository empresaRepository;
+
 	
 	public List<Empresa> buscaTodas() {
 		return empresaRepository.findAll();
@@ -21,5 +24,26 @@ public class EmpresaService {
 	
 	public Optional<Empresa> buscaPorId(Long id) {
 		return empresaRepository.findById(id);
+	}
+
+	public void criaEmpresa(EmpresaDTO empresaDTO) {
+		Empresa empresa = new Empresa();
+
+		empresa.setNome(empresaDTO.getNome());
+		empresa.setCnpj(empresa.getCnpj());
+
+		empresaRepository.save(empresa);
+	}
+
+	public void alterarEmpresa(EmpresaDTO empresaDTO) {
+		Empresa empresa = empresaRepository.findById(empresaDTO.getId()).get();
+		empresa.setNome(empresaDTO.getNome());
+		empresa.setCnpj(empresaDTO.getCnpj());
+
+		empresaRepository.save(empresa);
+	}
+
+	public void removeEmpresa(Empresa empresa) {
+		empresaRepository.delete(empresa);
 	}
 }

@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and().headers().frameOptions().sameOrigin();
     	
         http.authorizeRequests()
-                .antMatchers("/usuario/cadastrar").permitAll()
+                .antMatchers("/usuario/solicitar-acesso").permitAll()
                 .antMatchers("/css/**", "/img/**", "/js/**").permitAll()
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()

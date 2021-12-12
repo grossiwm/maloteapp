@@ -54,6 +54,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         usuarioLogado.setId(usuario.getId());
         usuarioLogado.setEmail(usuario.getEmail());
         usuarioLogado.setAdmin(usuario.isAdmin());
+        usuarioLogado.setAceito(usuario.isAceito());
 
         return auth;
 	}

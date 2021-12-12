@@ -1,14 +1,10 @@
 <html>
-    <head>
-        <title> MaloteApp </title>
-    </head>
+<jsp:include page="partials/head.jsp"/>
     <body>
+        <jsp:include page="partials/menu.jsp"/>
         <h1>
             MaloteApp
         </h1>
-        <h2> MIT EngiSoft </h2>
-        <h3><a href="https://github.com/grossiwm"> Gabriel Rossi Lopes </a></h3>
-        <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pharetra eget ex id auctor. Nunc eget lorem vel nisl auctor posuere ac sit amet tortor. Nam augue turpis, congue eu tincidunt at, consequat feugiat odio. Nullam dignissim eleifend magna non eleifend. Fusce rutrum a velit sed fringilla. Phasellus pretium eros suscipit luctus condimentum. Mauris lectus nibh, tincidunt eu dui nec, tempus hendrerit lectus. Suspendisse nec est eget nibh elementum consequat in et lacus. Nam et ultrices massa. Ut aliquam, mauris ac imperdiet dignissim, lacus est ultrices purus, ac mollis felis enim a diam. Nulla vel diam et nibh pretium faucibus ut sit amet tellus. Fusce lobortis, lorem quis vehicula hendrerit, augue est egestas dui, sit amet auctor magna arcu non odio. Suspendisse quis nisi sed neque sagittis finibus.
 
 Nulla non nisi vel libero tincidunt efficitur vel nec est. Ut sodales tempor consectetur. Curabitur et augue tincidunt, varius mauris ut, tincidunt nisl. Vestibulum id eros vel felis facilisis suscipit. Nam facilisis molestie eros vel hendrerit. Etiam lacinia neque ac erat maximus porta. Aliquam sodales tellus ac arcu sodales sollicitudin. Vestibulum id rutrum erat. Cras diam lacus, aliquam sit amet pharetra nec, interdum nec erat. Curabitur varius nisl eget turpis eleifend cursus. Proin ornare, quam non ornare ornare, nisi nibh facilisis ligula, posuere sagittis felis nunc id ligula. Donec eu nisi ante. Vestibulum elementum odio ac nibh ultricies, non pretium ex facilisis.

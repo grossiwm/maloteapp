@@ -3,6 +3,8 @@ package com.gabrielrossilopes.appmalote.session;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.util.Objects;
+
 @Component
 @SessionScope
 public class UsuarioLogadoSession {
@@ -11,6 +13,20 @@ public class UsuarioLogadoSession {
     private String email;
     
     private boolean admin;
+
+	private boolean aceito;
+
+	public boolean isNull() {
+		return Objects.isNull(email) && Objects.isNull(id);
+	}
+
+	public boolean isAceito() {
+		return aceito;
+	}
+
+	public void setAceito(boolean aceito) {
+		this.aceito = aceito;
+	}
 
 	public Long getId() {
 		return id;

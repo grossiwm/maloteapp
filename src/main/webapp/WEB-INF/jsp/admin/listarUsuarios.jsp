@@ -1,18 +1,19 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Employee Details</title>
-</head>
+<jsp:include page="../partials/head.jsp"/>
 <body>
-<h3>Usuários</h3>
+<jsp:include page="../partials/menu.jsp"/>
+<h3>UsuÃ¡rios</h3>
 <hr size="4" color="gray"/>
 <table>
 <c:forEach items="${usuarios}" var="usuario">
     <tr>
+        <td>Id: <c:out value="${usuario.id}"/></td>
         <td>Email: <c:out value="${usuario.email}"/></td>
-        <td>Empresa: <c:out value="${usuario.empresa.nome}"/></td>   
+        <td>Empresa: <c:out value="${usuario.empresa.nome}"/></td>
+        <td><a href="/admin/editar-usuario/<c:out value="${usuario.id}"/>">Editar</a></td>
+        <td><a href="/admin/remove-usuario/<c:out value="${usuario.id}"/>">Remover</a></td>
     </tr>
 </c:forEach>
 </table>
