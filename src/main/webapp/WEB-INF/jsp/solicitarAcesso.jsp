@@ -5,7 +5,7 @@
 <body>
 <jsp:include page="partials/menu.jsp"/>
 <h1>Cadastrar usuário</h1>
-<form action="/admin/cadastrar-usuario" method='POST'>
+<form action="/usuario/solicitar-acesso" method='POST'>
     <table>
         <tr>
             <td>Usuário:</td>

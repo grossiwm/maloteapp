@@ -30,6 +30,7 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioService usuarioService;
+
 	
 	@GetMapping("/perfil")
 	public String perfil(Model model) {
@@ -44,7 +45,8 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/solicitar-acesso")
-	public String solcicitarAcesso() {
+	public String solcicitarAcesso(Model model	) {
+		model.addAttribute("empresas", empresaService.buscaTodas());
 		return "solicitarAcesso";
 	}
 
@@ -61,7 +63,7 @@ public class UsuarioController {
 
 		usuarioService.cadastrarUsuario(usuario);
 
-		return "redirect:/admin/listarUsuarios";
+		return "redirect:/usuario/perfil";
 	}
 
 	@GetMapping("/aguardando-aceite")

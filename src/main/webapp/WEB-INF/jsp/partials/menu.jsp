@@ -32,13 +32,14 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/listar-empresas">Empresas</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
-                        </li>
                     </c:if>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
                 </c:if>
                 <c:if test = "${usuarioLogado.isNull()}">
                     <a class="nav-link" href="/login">Login</a>
+                    <a class="nav-link" href="/usuario/solicitar-acesso">Cadastrar</a>
                 </c:if>
             </ul>
         </div>
