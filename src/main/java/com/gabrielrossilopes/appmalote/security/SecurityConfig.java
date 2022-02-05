@@ -20,24 +20,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	
-        http.authorizeRequests().antMatchers("/h2-console/**").permitAll()
-        .and().csrf().ignoringAntMatchers("/h2-console/**")
-        .and().headers().frameOptions().sameOrigin();
-    	
-        http.authorizeRequests()
-                .antMatchers("/usuario/solicitar-acesso").permitAll()
-                .antMatchers("/css/**", "/img/**", "/js/**").permitAll()
-                .antMatchers("/").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
-        
-        http.csrf().disable();
+//        http.authorizeRequests().antMatchers("/h2-console/**").permitAll()
+//        .and().csrf().ignoringAntMatchers("/h2-console/**")
+//        .and().headers().frameOptions().sameOrigin();
+//
+//        http.authorizeRequests()
+//                .antMatchers("/usuario/solicitar-acesso").permitAll()
+//                .antMatchers("/transferencia").permitAll()
+//                .antMatchers("/pagamento").permitAll()
+//                .antMatchers("/deposito").permitAll()
+////                .antMatchers("/v2/**").permitAll()
+////                .antMatchers("/swagger-ui/**").permitAll()
+//                .antMatchers("/css/**", "/img/**", "/js/**").permitAll()
+//                .antMatchers("/").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .permitAll()
+//                .and()
+//                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
+//
+//        http.csrf().disable();
         
 
     }

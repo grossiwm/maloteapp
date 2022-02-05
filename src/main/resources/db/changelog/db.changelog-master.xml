@@ -196,7 +196,7 @@
 		</insert>
 	</changeSet>
 	<changeSet author="Gabriel Rossi Lopes" id="9">
-		<!-- seed usuarios -->
+		<!-- seed deposito -->
 		<insert tableName="deposito">
 			<column  name="cpf_beneficiario"  value="25917576076"/>
 			<column  name="nome_beneficiario"  value="Fulano da Silva"/>
@@ -216,7 +216,7 @@
 	</changeSet>
 
 	<changeSet author="Gabriel Rossi Lopes" id="10">
-		<!-- seed usuarios -->
+		<!-- seed pagamento -->
 		<insert tableName="pagamento">
 			<column  name="cnpj_recebedor"  value="56529545000144"/>
 		</insert>
@@ -228,6 +228,27 @@
 		</insert>
 		<insert tableName="pagamento">
 			<column  name="cnpj_recebedor"  value="84203575000100"/>
+		</insert>
+
+	</changeSet>
+
+	<changeSet author="Gabriel Rossi Lopes" id="11">
+		<!-- seed pagamento -->
+		<insert tableName="transferencia">
+			<column  name="conta_destino"  value="78787878"/>
+			<column  name="conta_origem"  value="1231312123"/>
+		</insert>
+		<insert tableName="transferencia">
+			<column  name="conta_destino"  value="78787878"/>
+			<column  name="conta_origem"  value="1231312123"/>
+		</insert>
+		<insert tableName="transferencia">
+			<column  name="conta_destino"  value="1111"/>
+			<column  name="conta_origem"  value="00123"/>
+		</insert>
+		<insert tableName="transferencia">
+			<column  name="conta_destino"  value="123312"/>
+			<column  name="conta_origem"  value="987989"/>
 		</insert>
 
 	</changeSet>
