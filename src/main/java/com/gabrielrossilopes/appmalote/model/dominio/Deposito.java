@@ -6,17 +6,43 @@ import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
 
 import com.gabrielrossilopes.appmalote.utils.ValidationUtils;
 
+import javax.persistence.*;
+
+@Entity(name = "deposito")
 public class Deposito extends Transacao {
-	
+
+	@Column(name = "cpf_beneficiario")
 	private String cpfBeneficiario;
+
+	@Column(name = "nome_beneficiario")
 	private String nomeBeneficiario;
-	
+
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	public Long getId() {
+		return id;
+	}
+
+	public Malote getMalote() {
+		return malote;
+	}
+
+	public void setMalote(Malote malote) {
+		this.malote = malote;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "malote_id")
+	private Malote malote;
 	
 	public Deposito() {
 		super();
 
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public void setStatus(TransacaoStatus status) {
@@ -45,7 +71,7 @@ public class Deposito extends Transacao {
 	
 	@Override
 	public String toString() {
-		return new StringBuilder().append(super.toString()).append(";").append(cpfBeneficiario).append(";").append(nomeBeneficiario).toString();
+		return new StringBuilder().append(cpfBeneficiario).append(";").append(nomeBeneficiario).toString();
 	}
 
 }

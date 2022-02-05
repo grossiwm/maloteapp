@@ -3,18 +3,19 @@ package com.gabrielrossilopes.appmalote.model.dominio;
 import com.gabrielrossilopes.appmalote.model.enums.TipoTransacao;
 import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 public abstract class Transacao {
-	
-	protected Integer id;
+
 	protected TransacaoStatus status;
 	
 
 	public Transacao() {
 		this.status = TransacaoStatus.PROCESSANDO;
 	}
-	public Integer getId() {
-		return id;
-	}
+
 
 	public TransacaoStatus getStatus() {
 		return status;
@@ -22,7 +23,7 @@ public abstract class Transacao {
 	
 	@Override
 	public String toString() {
-		return new StringBuilder().append(id).append(";").append(status.name()).toString();
+		return new StringBuilder().append(";").append(status.name()).toString();
 		
 	}
 	

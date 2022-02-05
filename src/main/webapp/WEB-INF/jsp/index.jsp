@@ -1,9 +1,11 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <html>
 <jsp:include page="partials/head.jsp"/>
     <body>
         <jsp:include page="partials/menu.jsp"/>
         <h1>
-            MaloteApp
+            Bem vindo <c:out value="${usuarioLogado.nome}"/>
         </h1>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pharetra eget ex id auctor. Nunc eget lorem vel nisl auctor posuere ac sit amet tortor. Nam augue turpis, congue eu tincidunt at, consequat feugiat odio. Nullam dignissim eleifend magna non eleifend. Fusce rutrum a velit sed fringilla. Phasellus pretium eros suscipit luctus condimentum. Mauris lectus nibh, tincidunt eu dui nec, tempus hendrerit lectus. Suspendisse nec est eget nibh elementum consequat in et lacus. Nam et ultrices massa. Ut aliquam, mauris ac imperdiet dignissim, lacus est ultrices purus, ac mollis felis enim a diam. Nulla vel diam et nibh pretium faucibus ut sit amet tellus. Fusce lobortis, lorem quis vehicula hendrerit, augue est egestas dui, sit amet auctor magna arcu non odio. Suspendisse quis nisi sed neque sagittis finibus.
 

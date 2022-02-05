@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.gabrielrossilopes.appmalote.dto.EmpresaDTO;
-import com.gabrielrossilopes.appmalote.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +17,8 @@ public class EmpresaService {
 	private EmpresaRepository empresaRepository;
 
 	
-	public List<Empresa> buscaTodas() {
-		return empresaRepository.findAll();
+	public List<Empresa> buscaTodasOrdenado() {
+		return empresaRepository.findAllByOrderByNome();
 	}
 	
 	public Optional<Empresa> buscaPorId(Long id) {

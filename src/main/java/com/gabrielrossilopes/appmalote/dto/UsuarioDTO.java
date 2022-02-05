@@ -13,6 +13,16 @@ public class UsuarioDTO {
 	
 	private Long empresa;
 
+	private String nome;
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -51,6 +61,7 @@ public class UsuarioDTO {
 		usuarioDTO.setEmpresa(usuario.getEmpresa().getId());
 		usuarioDTO.setSenha(usuario.getSenha());
 		usuarioDTO.setId(usuario.getId());
+		usuarioDTO.setNome(usuario.getNome());
 
 		return usuarioDTO;
 	}

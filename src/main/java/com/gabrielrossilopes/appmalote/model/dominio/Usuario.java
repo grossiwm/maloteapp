@@ -14,7 +14,34 @@ public class Usuario {
     @Column
 	private String email;
 
-    @Column
+	@Column
+	private String nome;
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Boolean getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
+	}
+
+	public Boolean getAceito() {
+		return aceito;
+	}
+
+	public void setAceito(Boolean aceito) {
+		this.aceito = aceito;
+	}
+
+	@Column
 	private String senha;
     
     @Column

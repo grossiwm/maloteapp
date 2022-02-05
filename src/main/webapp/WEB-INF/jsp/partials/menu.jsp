@@ -19,6 +19,12 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/usuario/perfil">Perfil</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/usuario/listar-usuarios">Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/usuario/novo-malote">Criar Malote</a>
+                    </li>
                     <c:if test = "${usuarioLogado.isAdmin()}">
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/cadastrar-usuario">Novo Usuário</a>

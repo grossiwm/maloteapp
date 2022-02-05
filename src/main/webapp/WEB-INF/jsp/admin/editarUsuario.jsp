@@ -1,6 +1,8 @@
 <%@ page import="java.util.Objects" %>
 <%@ page import="com.gabrielrossilopes.appmalote.dto.UsuarioDTO" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+
 <!DOCTYPE html>
 <html>
 <jsp:include page="../partials/head.jsp"/>
@@ -16,6 +18,10 @@
     </c:if>
     <table>
         <input type="hidden" name="id" value="<c:out value='${usuario.id}' />">
+        <tr>
+            <td>Nome:</td>
+            <td><input type='text' name='email' value="<c:out value='${usuario.nome}' />"></td>
+        </tr>
         <tr>
             <td>Email:</td>
             <td><input type='text' name='email' value="<c:out value='${usuario.email}' />"></td>

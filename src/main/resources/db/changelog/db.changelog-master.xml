@@ -22,6 +22,7 @@
             <column name="empresa_id" type="long" />
             <column name="admin" type="boolean" />
 			<column name="aceito" type="boolean" />
+			<column name="nome" type="varchar(255)" />
         </createTable>
         	<addAutoIncrement
 			columnDataType="long"
@@ -49,22 +50,109 @@
 			tableName="empresa"/>
 	</changeSet>
 	<changeSet author="Gabriel Rossi Lopes" id="3">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="deposito"/>
+			</not>
+		</preConditions>
+		<createTable tableName="deposito">
+			<column name="id" type="long">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="cpf_beneficiario" type="varchar(255)" />
+			<column name="nome_beneficiario" type="varchar(255)" />
+			<column name="malote_id" type="long"/>
+		</createTable>
+		<addAutoIncrement
+				columnDataType="long"
+				columnName="id"
+				incrementBy="1"
+				tableName="deposito"/>
+	</changeSet>
+	<changeSet author="Gabriel Rossi Lopes" id="4">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="pagamento"/>
+			</not>
+		</preConditions>
+		<createTable tableName="pagamento">
+			<column name="id" type="long">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="cnpj_recebedor" type="varchar(255)" />
+			<column name="malote_id" type="long" />
+		</createTable>
+		<addAutoIncrement
+				columnDataType="long"
+				columnName="id"
+				incrementBy="1"
+				tableName="pagamento"/>
+	</changeSet>
+	<changeSet author="Gabriel Rossi Lopes" id="5">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="transferencia"/>
+			</not>
+		</preConditions>
+		<createTable tableName="transferencia">
+			<column name="id" type="long">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="conta_origem" type="varchar(255)" />
+			<column name="conta_destino" type="varchar(255)" />
+			<column name="malote_id" type="long" />
+		</createTable>
+		<addAutoIncrement
+				columnDataType="long"
+				columnName="id"
+				incrementBy="1"
+				tableName="transferencia"/>
+	</changeSet>
+	<changeSet author="Gabriel Rossi Lopes" id="6">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="malote"/>
+			</not>
+		</preConditions>
+		<createTable tableName="malote">
+			<column name="id" type="long">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="data" type="varchar(255)" />
+			<column name="empresa_id" type="long" />
+		</createTable>
+		<addAutoIncrement
+				columnDataType="long"
+				columnName="id"
+				incrementBy="1"
+				tableName="malote"/>
+	</changeSet>
+	<changeSet author="Gabriel Rossi Lopes" id="7">
 		<!-- seed empresas -->
 		<insert tableName="empresa">
-			<column  name="nome"  value="ecorp"/>
+			<column  name="nome"  value="Ecorp"/>
 			<column  name="cnpj"  value="36178046000142"/>
 		</insert>
 		<insert tableName="empresa">
-			<column  name="nome"  value="cjv consultoria"/>
+			<column  name="nome"  value="Cjv consultoria"/>
 			<column  name="cnpj"  value="54325282000126"/>
 		</insert>
+		<insert tableName="empresa">
+			<column  name="nome"  value="X-Devs"/>
+			<column  name="cnpj"  value="00556585000120"/>
+		</insert>
+		<insert tableName="empresa">
+			<column  name="nome"  value="Bairulinhm"/>
+			<column  name="cnpj"  value="67942949000181"/>
+		</insert>
 	</changeSet>
-	<changeSet author="Gabriel Rossi Lopes" id="4">
+	<changeSet author="Gabriel Rossi Lopes" id="8">
 		<!-- seed usuarios -->
         <insert tableName="usuario">
         	<column  name="email"  value="admin@admin.com"/>
         	<column  name="senha"  value="123"/>
         	<column  name="admin"  value="true"/>
+        	<column  name="nome"  value="Elberth"/>
     	</insert>
  	    <insert tableName="usuario">
         	<column  name="email"  value="fulaninho@gmail.com"/>
@@ -72,6 +160,7 @@
         	<column  name="admin"  value="false"/>
         	<column  name="empresa_id"  value="1"/>
 			<column  name="aceito"  value="true"/>
+			<column  name="nome"  value="Fulano da Siva"/>
     	</insert>
   	 	<insert tableName="usuario">
         	<column  name="email"  value="rodrigo@gmail.com"/>
@@ -79,6 +168,7 @@
         	<column  name="admin"  value="false"/>
         	<column  name="empresa_id"  value="1"/>
 			<column  name="aceito"  value="true"/>
+			<column  name="nome"  value="Rodrigo da Almeida"/>
     	</insert>
 		<insert tableName="usuario">
 			<column  name="email"  value="danielle@gmail.com"/>
@@ -86,6 +176,7 @@
 			<column  name="admin"  value="false"/>
 			<column  name="empresa_id"  value="1"/>
 			<column  name="aceito"  value="false"/>
+			<column  name="nome"  value="Danielle"/>
 		</insert>
 		<insert tableName="usuario">
 			<column  name="email"  value="beltrano@gmail.com"/>
@@ -93,6 +184,7 @@
 			<column  name="admin"  value="false"/>
 			<column  name="empresa_id"  value="1"/>
 			<column  name="aceito"  value="false"/>
+			<column  name="nome"  value="Beltrano"/>
 		</insert>
 		<insert tableName="usuario">
 			<column  name="email"  value="lenon@gmail.com"/>
@@ -100,17 +192,44 @@
 			<column  name="admin"  value="false"/>
 			<column  name="empresa_id"  value="1"/>
 			<column  name="aceito"  value="false"/>
+			<column  name="nome"  value="Lenon"/>
 		</insert>
 	</changeSet>
-<!--	<changeSet id="5" author="Gabriel Rossi Lopes">-->
-<!--		<preConditions onFail="MARK_RAN">-->
-<!--			<foreignKeyConstraintExists foreignKeyName="fk_foo_bar"/>-->
-<!--		</preConditions>-->
-<!--		<dropForeignKeyConstraint baseTableName="table_foo" constraintName="fk_foo_bar"/>-->
-<!--		<addForeignKeyConstraint baseTableName="table_foo" baseColumnNames="foo_col"-->
-<!--								 constraintName="fk_foo_bar"-->
-<!--								 referencedTableName="table_bar" referencedColumnNames="bar_col"-->
-<!--								 onDelete="SET NULL"/>-->
-<!--	</changeSet>-->
+	<changeSet author="Gabriel Rossi Lopes" id="9">
+		<!-- seed usuarios -->
+		<insert tableName="deposito">
+			<column  name="cpf_beneficiario"  value="25917576076"/>
+			<column  name="nome_beneficiario"  value="Fulano da Silva"/>
+		</insert>
+		<insert tableName="deposito">
+			<column  name="cpf_beneficiario"  value="17794293049"/>
+			<column  name="nome_beneficiario"  value="Orlando Silva"/>
+		</insert>
+		<insert tableName="deposito">
+			<column  name="cpf_beneficiario"  value="01777779073"/>
+			<column  name="nome_beneficiario"  value="Rui da Silva"/>
+		</insert>
+		<insert tableName="deposito">
+			<column  name="cpf_beneficiario"  value="76194308060"/>
+			<column  name="nome_beneficiario"  value="Rodrigo Rodrigues"/>
+		</insert>
+	</changeSet>
+
+	<changeSet author="Gabriel Rossi Lopes" id="10">
+		<!-- seed usuarios -->
+		<insert tableName="pagamento">
+			<column  name="cnpj_recebedor"  value="56529545000144"/>
+		</insert>
+		<insert tableName="pagamento">
+			<column  name="cnpj_recebedor"  value="93471399000170"/>
+		</insert>
+		<insert tableName="pagamento">
+			<column  name="cnpj_recebedor"  value="33026320000170"/>
+		</insert>
+		<insert tableName="pagamento">
+			<column  name="cnpj_recebedor"  value="84203575000100"/>
+		</insert>
+
+	</changeSet>
     
 </databaseChangeLog>

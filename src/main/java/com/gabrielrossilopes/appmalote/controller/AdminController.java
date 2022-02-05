@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.gabrielrossilopes.appmalote.dto.EmpresaDTO;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +17,6 @@ import com.gabrielrossilopes.appmalote.model.dominio.Empresa;
 import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
 import com.gabrielrossilopes.appmalote.service.EmpresaService;
 import com.gabrielrossilopes.appmalote.service.UsuarioService;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin")
@@ -32,7 +30,7 @@ public class AdminController {
 	
 	@GetMapping("/cadastrar-usuario")
 	public String cadastrarUsuario(Model model) {
-		model.addAttribute("empresas", empresaService.buscaTodas());
+		model.addAttribute("empresas", empresaService.buscaTodasOrdenado());
 		return "admin/cadastrarUsuario";
 	}
 
@@ -44,10 +42,11 @@ public class AdminController {
 			usuario.setEmpresa(empresaOp.get());
 			usuario.setEmail(usuarioDTO.getEmail());
 			usuario.setSenha(usuarioDTO.getSenha());
+			usuario.setNome(usuarioDTO.getNome());
 			usuarioService.cadastrarUsuario(usuario);
 			return "redirect:/admin/listar-usuarios";
 		} catch (Exception e) {
-			model.addAttribute("empresas", empresaService.buscaTodas());
+			model.addAttribute("empresas", empresaService.buscaTodasOrdenado());
 			model.addAttribute("usuario", usuarioDTO);
 			model.addAttribute("error", true);
 			return "admin/cadastrarUsuario";
@@ -68,7 +67,7 @@ public class AdminController {
 		Usuario usuario = usuarioService.getUsuarioById(id).get();
 		UsuarioDTO usuarioDTO = UsuarioDTO.getUsuarioDTOdeUsuario(usuario);
 		model.addAttribute("usuario", usuarioDTO);
-		model.addAttribute("empresas", empresaService.buscaTodas());
+		model.addAttribute("empresas", empresaService.buscaTodasOrdenado());
 		return "admin/editarUsuario";
 	}
 
@@ -83,7 +82,7 @@ public class AdminController {
 			usuarioService.cadastrarUsuario(usuario);
 			return "redirect:/admin/listar-usuarios";
 		} catch (Exception e) {
-			model.addAttribute("empresas", empresaService.buscaTodas());
+			model.addAttribute("empresas", empresaService.buscaTodasOrdenado());
 			model.addAttribute("usuario", usuarioDTO);
 			model.addAttribute("error", true);
 			return "admin/editarUsuario";
@@ -114,7 +113,7 @@ public class AdminController {
 	
 	@GetMapping("/listar-empresas")
 	public String listarEmpresas(Model model) {
-		List<Empresa> empresas = empresaService.buscaTodas();
+		List<Empresa> empresas = empresaService.buscaTodasOrdenado();
 		model.addAttribute("empresas", empresas);
 		return "admin/listarEmpresas";
 	}

@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -8,7 +9,11 @@
 <form action="/usuario/solicitar-acesso" method='POST'>
     <table>
         <tr>
-            <td>Usuário:</td>
+            <td>Nome:</td>
+            <td><input type='text' name='nome' value=''></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
             <td><input type='text' name='email' value=''></td>
         </tr>
         <tr>

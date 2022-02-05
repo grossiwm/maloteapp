@@ -1,5 +1,6 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <jsp:include page="partials/head.jsp"/>
 <body>
@@ -9,11 +10,12 @@
       <c:if test = "${param.error != null}">
          <div class="alert alert-danger" role="alert">
             Credenciais incorretas
+
          </div>
       </c:if>
       <table>
          <tr>
-            <td>Usuário:</td>
+            <td>Email:</td>
             <td><input type='text' name='username' value=''></td>
          </tr>
          <tr>

@@ -16,6 +16,16 @@ public class UsuarioLogadoSession {
 
 	private boolean aceito;
 
+	private String nome;
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public boolean isNull() {
 		return Objects.isNull(email) && Objects.isNull(id);
 	}
