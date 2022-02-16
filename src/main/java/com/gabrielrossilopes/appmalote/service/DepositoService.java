@@ -31,4 +31,8 @@ public class DepositoService {
         deposito.setMalote(null);
         depositoRepository.save(deposito);
     }
+
+    public void removeDeposito(Deposito deposito) {
+        depositoRepository.delete(deposito);
+    }
 }

@@ -16,4 +16,16 @@ public class TransferenciaService {
     public List<Transferencia> getAllTransferencia() {
         return transferenciaRepository.findAll();
     }
+
+    public Transferencia buscaPorId(Long id) {
+        return transferenciaRepository.getById(id);
+    }
+
+    public Transferencia salvaTransferencia(Transferencia transferencia) {
+        return transferenciaRepository.save(transferencia);
+    }
+
+    public void removeTransferencia(Transferencia transferencia) {
+        transferenciaRepository.delete(transferencia);
+    }
 }

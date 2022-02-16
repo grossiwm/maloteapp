@@ -11,7 +11,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan("com.gabrielrossilopes.appmalote.security")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired

@@ -7,6 +7,7 @@ import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
 import com.gabrielrossilopes.appmalote.utils.ValidationUtils;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity(name="transferencia")
 public class Transferencia extends Transacao {
@@ -16,6 +17,16 @@ public class Transferencia extends Transacao {
 	@Column(name = "conta_origem")
 	private String contaOrigem;
 
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
+
+	@Column
+	private BigDecimal valor;
 
 	public Long getId() {
 		return id;

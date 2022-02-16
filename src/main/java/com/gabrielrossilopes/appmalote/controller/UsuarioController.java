@@ -1,14 +1,8 @@
 package com.gabrielrossilopes.appmalote.controller;
 
 import com.gabrielrossilopes.appmalote.dto.UsuarioDTO;
-import com.gabrielrossilopes.appmalote.model.dominio.Deposito;
-import com.gabrielrossilopes.appmalote.model.dominio.Empresa;
-import com.gabrielrossilopes.appmalote.model.dominio.Malote;
-import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
-import com.gabrielrossilopes.appmalote.service.DepositoService;
-import com.gabrielrossilopes.appmalote.service.EmpresaService;
-import com.gabrielrossilopes.appmalote.service.MaloteService;
-import com.gabrielrossilopes.appmalote.service.UsuarioService;
+import com.gabrielrossilopes.appmalote.model.dominio.*;
+import com.gabrielrossilopes.appmalote.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +32,13 @@ public class UsuarioController {
 	private DepositoService depositoService;
 
 	@Autowired
+	private PagamentoService pagamentoService;
+
+	@Autowired
 	private MaloteService maloteService;
+
+	@Autowired
+	private TransferenciaService transferenciaService;
 
 	@GetMapping("/perfil")
 	public String perfil(Model model) {
@@ -93,7 +93,127 @@ public class UsuarioController {
 		return "admin/listarUsuarios";
 	}
 
-	@GetMapping("novo-malote")
+	@GetMapping("/listar-depositos")
+	public String listarDepositos(Model model) {
+		List<Deposito> depositos = depositoService.getAllDepositos().stream().sorted(Comparator.comparing(Deposito::getNomeBeneficiario)).toList();
+		model.addAttribute("depositos", depositos);
+		return "listarDepositos";
+	}
+
+	@GetMapping("/alterar-deposito/{id}")
+	public String alterarDeposito(Model model, @PathVariable Long id) {
+		Deposito deposito = depositoService.buscaPorId(id);
+		model.addAttribute("deposito", deposito);
+		return "alterarDeposito";
+	}
+
+	@PostMapping("/alterar-deposito")
+	public String alterarDeposito(Deposito deposito) {
+		depositoService.salvaDeposito(deposito);
+		return "redirect:/usuario/listar-depositos";
+	}
+
+	@GetMapping("/novo-deposito")
+	public String novoDeposito(Model model) {
+		Deposito deposito = new Deposito();
+		model.addAttribute("deposito", deposito);
+		return "alterarDeposito";
+	}
+
+	@PostMapping("/novo-deposito")
+	public String novoDeposito(Deposito deposito) {
+		depositoService.salvaDeposito(deposito);
+		return "redirect:/usuario/listar-depositos";
+	}
+
+	@GetMapping("/remove-deposito/{id}")
+	public String removeDeposito(@PathVariable Long id) {
+		Deposito deposito = depositoService.buscaPorId(id);
+		depositoService.removeDeposito(deposito);
+		return "redirect:/usuario/listar-depositos";
+	}
+
+	@GetMapping("/listar-pagamentos")
+	public String listarPagamentos(Model model) {
+		List<Pagamento> pagamentos = pagamentoService.getAllPagamentos().stream().sorted(Comparator.comparing(Pagamento::getCnpjRecebedor)).toList();
+		model.addAttribute("pagamentos", pagamentos);
+		return "listarPagamentos";
+	}
+
+	@GetMapping("/alterar-pagamento/{id}")
+	public String alterarPagamento(@PathVariable Long id, Model model) {
+		Pagamento pagamento = pagamentoService.buscarPorId(id);
+		model.addAttribute("pagamento", pagamento);
+		return "alterarPagamento";
+	}
+
+	@PostMapping("/alterar-pagamento")
+	public String alterarPagamento(Pagamento pagamento) {
+		pagamentoService.salvarPagamento(pagamento);
+		return "redirect:/usuario/listar-pagamentos";
+	}
+
+	@GetMapping("/novo-pagamento")
+	public String novoPagamento(Model model) {
+		Pagamento pagamento = new Pagamento();
+		model.addAttribute("pagamento", pagamento);
+		return "alterarPagamento";
+	}
+
+	@PostMapping("/novo-pagamento")
+	public String novoPagamento(Pagamento pagamento) {
+		pagamentoService.salvarPagamento(pagamento);
+		return "redirect:/usuario/listar-pagamentos";
+	}
+
+	@GetMapping("/remove-pagamento/{id}")
+	public String removePagamento(@PathVariable Long id) {
+		Pagamento pagamento = pagamentoService.buscarPorId(id);
+		pagamentoService.removerPagamento(pagamento);
+		return "redirect:/usuario/listar-pagamentos";
+	}
+
+	@GetMapping("/listar-transferencias")
+	public String listarTransferencias(Model model) {
+		List<Transferencia> transferencias = transferenciaService.getAllTransferencia();
+		model.addAttribute("transferencias", transferencias);
+		return "listarTransferencias";
+	}
+
+	@GetMapping("/alterar-transferencia/{id}")
+	public String alterarTransferencia(@PathVariable Long id, Model model) {
+		Transferencia transferencia = transferenciaService.buscaPorId(id);
+		model.addAttribute("transferencia", transferencia);
+		return "alterarTransferencia";
+	}
+
+	@PostMapping("/alterar-transferencia")
+	public String alterarTransferencia(Transferencia transferencia) {
+		transferenciaService.salvaTransferencia(transferencia);
+		return "redirect:/usuario/listar-transferencias";
+	}
+
+	@GetMapping("/nova-transferencia")
+	public String novaTransferencia(Model model) {
+		Transferencia transferencia = new Transferencia();
+		model.addAttribute("transferencia", transferencia);
+		return "alterarTransferencia";
+	}
+
+	@PostMapping("/nova-transferencia")
+	public String novaTransferencia(Transferencia transferencia) {
+		transferenciaService.salvaTransferencia(transferencia);
+		return "redirect:/usuario/listar-transferencias";
+	}
+
+	@GetMapping("/remove-transferencia/{id}")
+	public String removeTransferencia(@PathVariable Long id) {
+		Transferencia transferencia = transferenciaService.buscaPorId(id);
+		transferenciaService.removeTransferencia(transferencia);
+		return "redirect:/usuario/listar-transferencias";
+	}
+
+	@GetMapping("/novo-malote")
 	public String novoMalote() {
 		Usuario usuario = usuarioService.getUsuarioById(usuarioLogado.getId()).get();
 		Malote malote = new Malote();

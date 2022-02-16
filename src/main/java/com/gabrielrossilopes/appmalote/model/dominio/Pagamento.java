@@ -7,6 +7,7 @@ import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
 import com.gabrielrossilopes.appmalote.utils.ValidationUtils;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity(name = "pagamento")
 public class Pagamento extends Transacao {
@@ -22,6 +23,17 @@ public class Pagamento extends Transacao {
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Column
+	private BigDecimal valor;
+
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
 
 	public Long getId() {
 		return id;
@@ -46,8 +58,8 @@ public class Pagamento extends Transacao {
 		return cnpjRecebedor;
 	}
 	public void setCnpjRecebedor(String cnpjRecebedor) throws CnpjInvalidoException {
-		if (!ValidationUtils.validaCNPJ(cnpjRecebedor))
-			throw new CnpjInvalidoException("cnpj " + cnpjRecebedor + " inválido");
+//		if (!ValidationUtils.validaCNPJ(cnpjRecebedor))
+//			throw new CnpjInvalidoException("cnpj " + cnpjRecebedor + " inválido");
 		
 		this.cnpjRecebedor = cnpjRecebedor;
 	}

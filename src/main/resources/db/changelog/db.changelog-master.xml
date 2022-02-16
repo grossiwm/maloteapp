@@ -61,6 +61,7 @@
 			</column>
 			<column name="cpf_beneficiario" type="varchar(255)" />
 			<column name="nome_beneficiario" type="varchar(255)" />
+			<column name="valor" type="numeric(20,2)" />
 			<column name="malote_id" type="long"/>
 		</createTable>
 		<addAutoIncrement
@@ -80,6 +81,7 @@
 				<constraints primaryKey="true" />
 			</column>
 			<column name="cnpj_recebedor" type="varchar(255)" />
+			<column name="valor" type="numeric(20,2)" />
 			<column name="malote_id" type="long" />
 		</createTable>
 		<addAutoIncrement
@@ -100,6 +102,7 @@
 			</column>
 			<column name="conta_origem" type="varchar(255)" />
 			<column name="conta_destino" type="varchar(255)" />
+			<column name="valor" type="numeric(20,2)" />
 			<column name="malote_id" type="long" />
 		</createTable>
 		<addAutoIncrement
@@ -197,40 +200,64 @@
 		</insert>
 	</changeSet>
 	<changeSet author="Gabriel Rossi Lopes" id="9">
-		<!-- seed usuarios -->
+		<!-- seed depositos -->
 		<insert tableName="deposito">
 			<column  name="cpf_beneficiario"  value="25917576076"/>
 			<column  name="nome_beneficiario"  value="Fulano da Silva"/>
+			<column  name="valor"  value="400.00"/>
 		</insert>
 		<insert tableName="deposito">
 			<column  name="cpf_beneficiario"  value="17794293049"/>
 			<column  name="nome_beneficiario"  value="Orlando Silva"/>
+			<column  name="valor"  value="720.00"/>
 		</insert>
 		<insert tableName="deposito">
 			<column  name="cpf_beneficiario"  value="01777779073"/>
 			<column  name="nome_beneficiario"  value="Rui da Silva"/>
+			<column  name="valor"  value="800.00"/>
 		</insert>
 		<insert tableName="deposito">
 			<column  name="cpf_beneficiario"  value="76194308060"/>
 			<column  name="nome_beneficiario"  value="Rodrigo Rodrigues"/>
+			<column  name="valor"  value="972.29"/>
 		</insert>
 	</changeSet>
 
 	<changeSet author="Gabriel Rossi Lopes" id="10">
-		<!-- seed usuarios -->
+		<!-- seed pagamentos -->
 		<insert tableName="pagamento">
 			<column  name="cnpj_recebedor"  value="56529545000144"/>
+			<column  name="valor"  value="123.00"/>
 		</insert>
 		<insert tableName="pagamento">
 			<column  name="cnpj_recebedor"  value="93471399000170"/>
+			<column  name="valor"  value="123.00"/>
 		</insert>
 		<insert tableName="pagamento">
 			<column  name="cnpj_recebedor"  value="33026320000170"/>
+			<column  name="valor"  value="500.00"/>
 		</insert>
 		<insert tableName="pagamento">
 			<column  name="cnpj_recebedor"  value="84203575000100"/>
+			<column  name="valor"  value="650.00"/>
 		</insert>
-
 	</changeSet>
-    
+	<changeSet author="Gabriel Rossi Lopes" id="11">
+		<!-- seed transferencias -->
+		<insert tableName="transferencia">
+			<column  name="conta_destino"  value="298828"/>
+			<column  name="conta_origem"  value="00876"/>
+			<column  name="valor"  value="123.00"/>
+		</insert>
+		<insert tableName="transferencia">
+			<column  name="conta_destino"  value="11899"/>
+			<column  name="conta_origem"  value="00988"/>
+			<column  name="valor"  value="8889.00"/>
+		</insert>
+		<insert tableName="transferencia">
+			<column  name="conta_destino"  value="11899"/>
+			<column  name="conta_origem"  value="11119"/>
+			<column  name="valor"  value="1000000000.00"/>
+		</insert>
+	</changeSet>
 </databaseChangeLog>

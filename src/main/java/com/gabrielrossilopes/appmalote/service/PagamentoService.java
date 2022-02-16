@@ -16,4 +16,16 @@ public class PagamentoService {
     public List<Pagamento> getAllPagamentos() {
         return pagamentoRepository.findAll();
     }
+
+    public Pagamento salvarPagamento(Pagamento pagamento) {
+        return pagamentoRepository.save(pagamento);
+    }
+
+    public Pagamento buscarPorId(Long id) {
+        return pagamentoRepository.getById(id);
+    }
+
+    public void removerPagamento(Pagamento pagamento) {
+        pagamentoRepository.delete(pagamento);
+    }
 }

@@ -7,6 +7,7 @@ import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
 import com.gabrielrossilopes.appmalote.utils.ValidationUtils;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity(name = "deposito")
 public class Deposito extends Transacao {
@@ -16,6 +17,17 @@ public class Deposito extends Transacao {
 
 	@Column(name = "nome_beneficiario")
 	private String nomeBeneficiario;
+
+	@Column
+	private BigDecimal valor;
+
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
 
 	@Id
 	@Column(name = "id")
@@ -53,8 +65,8 @@ public class Deposito extends Transacao {
 		return cpfBeneficiario;
 	}
 	public void setCpfBeneficiario(String cpfBeneficiario) throws CpfInvalidoException {
-		if (!ValidationUtils.validaCPF(cpfBeneficiario))
-			throw new CpfInvalidoException("Cpf " + cpfBeneficiario + " inválido");
+//		if (!ValidationUtils.validaCPF(cpfBeneficiario))
+//			throw new CpfInvalidoException("Cpf " + cpfBeneficiario + " inválido");
 		
 		this.cpfBeneficiario = cpfBeneficiario;
 	}
