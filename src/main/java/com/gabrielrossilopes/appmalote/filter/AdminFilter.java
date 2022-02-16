@@ -22,13 +22,7 @@ public class AdminFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        if (usuarioLogado.isNull()){
-            filterChain.doFilter(request, response);
-            return;
-        }
-
-
-        if (request.getRequestURI().startsWith("/admin") && !usuarioLogado.isAdmin()) {
+        if (request.getRequestURI().startsWith("/admin") && (usuarioLogado.isNull() || !usuarioLogado.isAdmin())) {
             response.sendRedirect("/usuario/403");
         } else {
             filterChain.doFilter(request, response);

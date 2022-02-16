@@ -120,6 +120,7 @@
 			</column>
 			<column name="data" type="varchar(255)" />
 			<column name="empresa_id" type="long" />
+			<column name="usuario_id" type="long" />
 		</createTable>
 		<addAutoIncrement
 				columnDataType="long"

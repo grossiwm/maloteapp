@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import com.gabrielrossilopes.appmalote.session.UsuarioLogadoSession;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,7 +88,7 @@ public class UsuarioController {
 	@GetMapping("/listar-usuarios")
 	public String listarUsuarios(Model model) {
 		List<Usuario> usuarios = usuarioService.busucaTodos();
-		usuarios = usuarios.stream().filter(u -> !u.isAdmin()).toList();
+		usuarios = usuarios.stream().filter(u -> !u.isAdmin()).sorted(Comparator.comparing(Usuario::getNome)).toList();
 		model.addAttribute("usuarios", usuarios);
 		return "admin/listarUsuarios";
 	}
@@ -97,6 +98,7 @@ public class UsuarioController {
 		Usuario usuario = usuarioService.getUsuarioById(usuarioLogado.getId()).get();
 		Malote malote = new Malote();
 		malote.setEmpresa(usuario.getEmpresa());
+		malote.setUsuario(usuario);
 		maloteService.salvaMalote(malote);
 
 		return "redirect:/usuario/alterar-malote/" + malote.getId();

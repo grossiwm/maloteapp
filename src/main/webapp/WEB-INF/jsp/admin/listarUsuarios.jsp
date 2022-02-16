@@ -12,6 +12,7 @@
 <c:forEach items="${usuarios}" var="usuario">
     <tr>
         <td>Id: <c:out value="${usuario.id}"/></td>
+        <td>Nome: <c:out value="${usuario.nome}"/></td>
         <td>Email: <c:out value="${usuario.email}"/></td>
         <td>Empresa: <c:out value="${usuario.empresa.nome}"/></td>
         <c:if test = "${usuarioLogado.isAdmin()}">

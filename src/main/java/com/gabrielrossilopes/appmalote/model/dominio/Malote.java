@@ -32,8 +32,24 @@ public class Malote {
 	@JoinColumn(name = "empresa_id")
 	private Empresa empresa;
 
+	@ManyToOne
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
+
 	public void setTransacoes(List<Transacao> transacoes) {
 		this.transacoes = transacoes;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public void setData(LocalDateTime data) {
+		this.data = data;
 	}
 
 	@OneToMany

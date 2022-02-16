@@ -1,5 +1,6 @@
 package com.gabrielrossilopes.appmalote.controller;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +58,8 @@ public class AdminController {
 	@GetMapping("/listar-usuarios")
 	public String listarUsuarios(Model model) {
 		List<Usuario> usuarios = usuarioService.busucaTodos();
-		usuarios = usuarios.stream().filter(u -> !u.isAdmin()).toList();
+		usuarios = usuarios.stream().filter(u -> !u.isAdmin()).sorted(Comparator.comparing(Usuario::getNome))
+				.toList();
 		model.addAttribute("usuarios", usuarios);
 		return "admin/listarUsuarios";
 	}
