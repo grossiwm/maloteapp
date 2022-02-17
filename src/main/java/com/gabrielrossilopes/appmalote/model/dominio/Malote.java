@@ -52,13 +52,11 @@ public class Malote {
 		this.data = data;
 	}
 
-	@OneToMany
-	@JoinColumn(name = "malote_id")
+	@OneToMany(mappedBy = "malote", targetEntity = Deposito.class, cascade = CascadeType.ALL)
 	private List<Deposito> depositos;
 
 
-	@OneToMany
-	@JoinColumn(name = "malote_id")
+	@OneToMany(mappedBy = "malote", targetEntity = Pagamento.class, cascade = CascadeType.ALL)
 	private List<Pagamento> pagamentos;
 
 	public List<Deposito> getDepositos() {
@@ -85,8 +83,7 @@ public class Malote {
 		this.transferencias = transferencias;
 	}
 
-	@OneToMany
-	@JoinColumn(name = "malote_id")
+	@OneToMany(mappedBy = "malote", targetEntity = Transferencia.class, cascade = CascadeType.ALL)
 	private List<Transferencia> transferencias;
 
 	@Transient

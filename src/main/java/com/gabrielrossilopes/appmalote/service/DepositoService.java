@@ -26,11 +26,6 @@ public class DepositoService {
         return depositoRepository.getById(id);
     }
 
-    public void removeDeMalote(Long depositoId) {
-        Deposito deposito = depositoRepository.getById(depositoId);
-        deposito.setMalote(null);
-        depositoRepository.save(deposito);
-    }
 
     public void removeDeposito(Deposito deposito) {
         depositoRepository.delete(deposito);

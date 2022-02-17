@@ -113,9 +113,11 @@ public class UsuarioController {
 		return "redirect:/usuario/listar-depositos";
 	}
 
-	@GetMapping("/novo-deposito")
-	public String novoDeposito(Model model) {
+	@GetMapping("/novo-deposito/{maloteId}")
+	public String novoDeposito(Model model, @PathVariable Long maloteId) {
 		Deposito deposito = new Deposito();
+		Malote malote = maloteService.getById(maloteId);
+		deposito.setMalote(malote);
 		model.addAttribute("deposito", deposito);
 		return "alterarDeposito";
 	}
@@ -214,14 +216,10 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/novo-malote")
-	public String novoMalote() {
-		Usuario usuario = usuarioService.getUsuarioById(usuarioLogado.getId()).get();
+	public String novoMalote(Model model) {
 		Malote malote = new Malote();
-		malote.setEmpresa(usuario.getEmpresa());
-		malote.setUsuario(usuario);
-		maloteService.salvaMalote(malote);
-
-		return "redirect:/usuario/alterar-malote/" + malote.getId();
+		model.addAttribute("malote", malote);
+		return "alterarMalote";
 	}
 
 	@GetMapping("/alterar-malote/{id}")
@@ -244,13 +242,6 @@ public class UsuarioController {
 		});
 
 		return "redirect:/usuario/alterar-malote/" + id;
-	}
-
-	@GetMapping("/malote/{maloteId}/remover-deposito/{depositoId}")
-	public String removerDepositoDeMalote(@PathVariable Long maloteId, @PathVariable Long depositoId) {
-		depositoService.removeDeMalote(depositoId);
-		return "redirect:/usuario/alterar-malote/" + maloteId;
-
 	}
 
 }

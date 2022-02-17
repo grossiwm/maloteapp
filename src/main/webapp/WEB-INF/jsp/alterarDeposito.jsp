@@ -45,6 +45,7 @@ method='POST'>
             <td>Valor:</td>
             <td><input type='text' name='valor' value="<c:out value='${deposito.valor}' />"></td>
         </tr>
+        <input type='text' name='maloteId' value="<c:out value='${deposito.malote.id}' />">
         <tr>
             <td><input name="submit" type="submit" value="submit" /></td>
         </tr>

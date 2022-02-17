@@ -1,5 +1,6 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -51,11 +52,22 @@ public class Usuario {
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
 
+	@OneToMany(mappedBy = "usuario", targetEntity = Malote.class, cascade = CascadeType.ALL)
+	private List<Malote> malotes;
+
 	@Column
 	private Boolean aceito;
 
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
+	}
+
+	public List<Malote> getMalotes() {
+		return malotes;
+	}
+
+	public void setMalotes(List<Malote> malotes) {
+		this.malotes = malotes;
 	}
 
 	public Boolean isAceito() {
