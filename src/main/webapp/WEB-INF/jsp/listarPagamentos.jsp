@@ -19,7 +19,7 @@
         </c:if>
         <td><a href="/usuario/alterar-pagamento/<c:out value="${p.id}"/>">Editar</a></td>
         <td><a href="/usuario/remove-pagamento/<c:out value="${p.id}"/>">Remover</a></td>
-
+        <td><a href="/usuario/alterar-malote/<c:out value='${p.malote.id}' />"> malote</a></td>
     </tr>
 </c:forEach>
 </table>

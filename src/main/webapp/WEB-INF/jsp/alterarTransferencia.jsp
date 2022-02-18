@@ -21,7 +21,7 @@
     action="/usuario/alterar-transferencia"
 </c:if>
 <c:if test = "${transferencia.id == null}">
-    action="/usuario/nova-transferencia"
+    action="/usuario/nova-transferencia/<c:out value='${transferencia.malote.id}' />"
 </c:if>
 method='POST'>
     <c:if test = "${error}">
@@ -43,7 +43,8 @@ method='POST'>
             <td>Valor:</td>
             <td><input type='text' name='valor' value="<c:out value='${transferencia.valor}' />"></td>
         </tr>
-        <input type='text' name='maloteId' value="<c:out value='${transferencia.malote.id}' />">
+        <td><a href="/usuario/alterar-malote/<c:out value='${transferencia.malote.id}' />">ver malote</a></td>
+        <input type='hidden' name='maloteId' value="<c:out value='${transferencia.malote.id}' />">
         <tr>
             <td><input name="submit" type="submit" value="submit" /></td>
         </tr>

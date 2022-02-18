@@ -20,6 +20,7 @@
         </c:if>
         <td><a href="/usuario/alterar-deposito/<c:out value="${d.id}"/>">Editar</a></td>
         <td><a href="/usuario/remove-deposito/<c:out value="${d.id}"/>">Remover</a></td>
+        <td><a href="/usuario/alterar-malote/<c:out value='${d.malote.id}' />"> malote</a></td>
 
     </tr>
 </c:forEach>

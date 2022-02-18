@@ -21,7 +21,7 @@
     action="/usuario/alterar-pagamento"
 </c:if>
 <c:if test = "${pagamento.id == null}">
-    action="/usuario/novo-pagamento"
+    action="/usuario/novo-pagamento/<c:out value='${pagamento.malote.id}' />"
 </c:if>
 method='POST'>
     <c:if test = "${error}">
@@ -38,8 +38,9 @@ method='POST'>
         <tr>
             <td>Valor:</td>
             <td><input type='text' name='valor' value="<c:out value='${pagamento.valor}' />"></td>
+            <td><a href="/usuario/alterar-malote/<c:out value='${pagamento.malote.id}' />">ver malote</a></td>
         </tr>
-        <input type='text' name='maloteId' value="<c:out value='${pagamento.malote.id}' />">
+        <input type='hidden' name='maloteId' value="<c:out value='${pagamento.malote.id}' />">
         <tr>
             <td><input name="submit" type="submit" value="submit" /></td>
         </tr>

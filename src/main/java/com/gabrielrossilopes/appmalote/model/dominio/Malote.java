@@ -52,12 +52,29 @@ public class Malote {
 		this.data = data;
 	}
 
-	@OneToMany(mappedBy = "malote", targetEntity = Deposito.class, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "malote", targetEntity = Deposito.class, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Deposito> depositos;
 
 
-	@OneToMany(mappedBy = "malote", targetEntity = Pagamento.class, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "malote", targetEntity = Pagamento.class, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Pagamento> pagamentos;
+
+	@OneToMany(mappedBy = "malote", targetEntity = Transferencia.class, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Transferencia> transferencias;
+
+	@Transient
+	private List<Transacao> transacoes;
+
+	@Column
+	private LocalDateTime data;
+
+	@Override
+	public String toString() {
+
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+		return String.format("%s; %s; %s", id, empresa, formato.format(data));
+	}
+
 
 	public List<Deposito> getDepositos() {
 		return depositos;
@@ -82,15 +99,6 @@ public class Malote {
 	public void setTransferencias(List<Transferencia> transferencias) {
 		this.transferencias = transferencias;
 	}
-
-	@OneToMany(mappedBy = "malote", targetEntity = Transferencia.class, cascade = CascadeType.ALL)
-	private List<Transferencia> transferencias;
-
-	@Transient
-	private List<Transacao> transacoes;
-
-	@Column
-	private LocalDateTime data;
 	
 	public LocalDateTime getData() {
 		return data;
@@ -112,13 +120,6 @@ public class Malote {
 	}
 	public void addTransacoes(List<Transacao> transacoes) {
 		this.transacoes.addAll(transacoes);
-	}
-	
-	@Override
-	public String toString() {
-		
-		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-		return String.format("%s; %s; %s", id, empresa, formato.format(data));
 	}
 
 }

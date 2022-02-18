@@ -3,6 +3,8 @@ package com.gabrielrossilopes.appmalote.controller;
 import com.gabrielrossilopes.appmalote.dto.UsuarioDTO;
 import com.gabrielrossilopes.appmalote.model.dominio.*;
 import com.gabrielrossilopes.appmalote.service.*;
+import com.gabrielrossilopes.appmalote.utils.DataUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -122,8 +124,10 @@ public class UsuarioController {
 		return "alterarDeposito";
 	}
 
-	@PostMapping("/novo-deposito")
-	public String novoDeposito(Deposito deposito) {
+	@PostMapping("/novo-deposito/{maloteId}")
+	public String novoDeposito(Deposito deposito, @PathVariable Long maloteId) {
+		Malote malote = maloteService.getById(maloteId);
+		deposito.setMalote(malote);
 		depositoService.salvaDeposito(deposito);
 		return "redirect:/usuario/listar-depositos";
 	}
@@ -155,15 +159,19 @@ public class UsuarioController {
 		return "redirect:/usuario/listar-pagamentos";
 	}
 
-	@GetMapping("/novo-pagamento")
-	public String novoPagamento(Model model) {
+	@GetMapping("/novo-pagamento/{maloteId}")
+	public String novoPagamento(Model model, @PathVariable Long maloteId) {
+		Malote malote = maloteService.getById(maloteId);
 		Pagamento pagamento = new Pagamento();
+		pagamento.setMalote(malote);
 		model.addAttribute("pagamento", pagamento);
 		return "alterarPagamento";
 	}
 
-	@PostMapping("/novo-pagamento")
-	public String novoPagamento(Pagamento pagamento) {
+	@PostMapping("/novo-pagamento/{maloteId}")
+	public String novoPagamento(Pagamento pagamento, @PathVariable Long maloteId) {
+		Malote malote = maloteService.getById(maloteId);
+		pagamento.setMalote(malote);
 		pagamentoService.salvarPagamento(pagamento);
 		return "redirect:/usuario/listar-pagamentos";
 	}
@@ -195,15 +203,19 @@ public class UsuarioController {
 		return "redirect:/usuario/listar-transferencias";
 	}
 
-	@GetMapping("/nova-transferencia")
-	public String novaTransferencia(Model model) {
+	@GetMapping("/nova-transferencia/{maloteId}")
+	public String novaTransferencia(Model model, @PathVariable Long maloteId) {
+		Malote malote = maloteService.getById(maloteId);
 		Transferencia transferencia = new Transferencia();
+		transferencia.setMalote(malote);
 		model.addAttribute("transferencia", transferencia);
 		return "alterarTransferencia";
 	}
 
-	@PostMapping("/nova-transferencia")
-	public String novaTransferencia(Transferencia transferencia) {
+	@PostMapping("/nova-transferencia/{maloteId}")
+	public String novaTransferencia(Transferencia transferencia, @PathVariable Long maloteId) {
+		Malote malote = maloteService.getById(maloteId);
+		transferencia.setMalote(malote);
 		transferenciaService.salvaTransferencia(transferencia);
 		return "redirect:/usuario/listar-transferencias";
 	}
@@ -217,15 +229,20 @@ public class UsuarioController {
 
 	@GetMapping("/novo-malote")
 	public String novoMalote(Model model) {
+		Usuario usuario = usuarioService.getUsuarioById(usuarioLogado.getId()).get();
 		Malote malote = new Malote();
-		model.addAttribute("malote", malote);
-		return "alterarMalote";
+		malote.setEmpresa(usuario.getEmpresa());
+		malote.setUsuario(usuario);
+		maloteService.salvaMalote(malote);
+
+		return "redirect:/usuario/alterar-malote/" + malote.getId();
 	}
 
 	@GetMapping("/alterar-malote/{id}")
 	public String alterarMalote(Model model, @PathVariable Long id) {
 		Malote malote = maloteService.getById(id);
 		model.addAttribute("malote", malote);
+		model.addAttribute("dataCriacao", DataUtils.dataFormatada(malote.getData()));
 		List<Deposito> depositos = depositoService.getAllDepositos();
 		model.addAttribute("depositos", depositos);
 		return "alterarMalote";

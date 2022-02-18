@@ -15,7 +15,7 @@ public class DepositoService {
     private DepositoRepository depositoRepository;
 
     public List<Deposito> getAllDepositos() {
-        return depositoRepository.findAll().stream().filter(d -> d.getMalote() == null).collect(Collectors.toList());
+        return depositoRepository.findAll();
     }
 
     public Deposito salvaDeposito(Deposito deposito) {

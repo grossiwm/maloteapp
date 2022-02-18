@@ -18,6 +18,22 @@ public class Usuario {
 	@Column
 	private String nome;
 
+	@Column
+	private String senha;
+    
+    @Column
+    private Boolean admin;
+    
+	@ManyToOne
+    @JoinColumn(name = "empresa_id")
+    private Empresa empresa;
+
+	@OneToMany(mappedBy = "usuario", targetEntity = Malote.class, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Malote> malotes;
+
+	@Column
+	private Boolean aceito;
+
 	public String getNome() {
 		return nome;
 	}
@@ -41,22 +57,6 @@ public class Usuario {
 	public void setAceito(Boolean aceito) {
 		this.aceito = aceito;
 	}
-
-	@Column
-	private String senha;
-    
-    @Column
-    private Boolean admin;
-    
-	@ManyToOne
-    @JoinColumn(name = "empresa_id")
-    private Empresa empresa;
-
-	@OneToMany(mappedBy = "usuario", targetEntity = Malote.class, cascade = CascadeType.ALL)
-	private List<Malote> malotes;
-
-	@Column
-	private Boolean aceito;
 
 	public void setAdmin(boolean admin) {
 		this.admin = admin;

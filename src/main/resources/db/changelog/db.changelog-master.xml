@@ -200,64 +200,101 @@
 		</insert>
 	</changeSet>
 	<changeSet author="Gabriel Rossi Lopes" id="9">
+		<!-- seed malotes -->
+		<insert tableName="malote">
+			<column name="data" value="2022-02-17 23:18:13.689612626"/>
+			<column name="empresa_id" value="1"/>
+		</insert>
+		<insert tableName="malote">
+			<column name="data" value="2022-02-17 23:18:13.689612626"/>
+			<column name="empresa_id" value="1"/>
+		</insert>
+		<insert tableName="malote">
+			<column name="data" value="2022-02-17 23:18:13.689612626"/>
+			<column name="empresa_id" value="1"/>
+		</insert>
+		<insert tableName="malote">
+			<column name="data" value="2022-02-17 23:18:13.689612626"/>
+			<column name="empresa_id" value="1"/>
+		</insert>
+	</changeSet>
+	<changeSet author="Gabriel Rossi Lopes" id="10">
 		<!-- seed depositos -->
 		<insert tableName="deposito">
 			<column  name="cpf_beneficiario"  value="25917576076"/>
 			<column  name="nome_beneficiario"  value="Fulano da Silva"/>
 			<column  name="valor"  value="400.00"/>
+			<column  name="malote_id"  value="1"/>
 		</insert>
 		<insert tableName="deposito">
 			<column  name="cpf_beneficiario"  value="17794293049"/>
 			<column  name="nome_beneficiario"  value="Orlando Silva"/>
-			<column  name="valor"  value="720.00"/>
+			<column  name="valor"  value="555.00"/>
+			<column  name="malote_id"  value="1"/>
+
 		</insert>
 		<insert tableName="deposito">
 			<column  name="cpf_beneficiario"  value="01777779073"/>
 			<column  name="nome_beneficiario"  value="Rui da Silva"/>
-			<column  name="valor"  value="800.00"/>
+			<column  name="valor"  value="600.00"/>
+			<column  name="malote_id"  value="1"/>
+
 		</insert>
 		<insert tableName="deposito">
 			<column  name="cpf_beneficiario"  value="76194308060"/>
 			<column  name="nome_beneficiario"  value="Rodrigo Rodrigues"/>
-			<column  name="valor"  value="972.29"/>
+			<column  name="malote_id"  value="1"/>
+			<column  name="valor"  value="899999.00"/>
 		</insert>
 	</changeSet>
 
-	<changeSet author="Gabriel Rossi Lopes" id="10">
+	<changeSet author="Gabriel Rossi Lopes" id="11">
 		<!-- seed pagamentos -->
 		<insert tableName="pagamento">
 			<column  name="cnpj_recebedor"  value="56529545000144"/>
 			<column  name="valor"  value="123.00"/>
+			<column  name="malote_id"  value="1"/>
 		</insert>
 		<insert tableName="pagamento">
 			<column  name="cnpj_recebedor"  value="93471399000170"/>
 			<column  name="valor"  value="123.00"/>
+			<column  name="malote_id"  value="1"/>
 		</insert>
 		<insert tableName="pagamento">
 			<column  name="cnpj_recebedor"  value="33026320000170"/>
 			<column  name="valor"  value="500.00"/>
+			<column  name="malote_id"  value="1"/>
+
 		</insert>
 		<insert tableName="pagamento">
 			<column  name="cnpj_recebedor"  value="84203575000100"/>
 			<column  name="valor"  value="650.00"/>
+			<column  name="malote_id"  value="1"/>
+
 		</insert>
 	</changeSet>
-	<changeSet author="Gabriel Rossi Lopes" id="11">
+	<changeSet author="Gabriel Rossi Lopes" id="12">
 		<!-- seed transferencias -->
 		<insert tableName="transferencia">
 			<column  name="conta_destino"  value="298828"/>
 			<column  name="conta_origem"  value="00876"/>
 			<column  name="valor"  value="123.00"/>
+			<column  name="malote_id"  value="1"/>
+
 		</insert>
 		<insert tableName="transferencia">
 			<column  name="conta_destino"  value="11899"/>
 			<column  name="conta_origem"  value="00988"/>
 			<column  name="valor"  value="8889.00"/>
+			<column  name="malote_id"  value="1"/>
+
 		</insert>
 		<insert tableName="transferencia">
 			<column  name="conta_destino"  value="11899"/>
 			<column  name="conta_origem"  value="11119"/>
 			<column  name="valor"  value="1000000000.00"/>
+			<column  name="malote_id"  value="1"/>
+
 		</insert>
 	</changeSet>
 </databaseChangeLog>
