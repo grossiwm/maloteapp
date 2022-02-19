@@ -1,14 +1,13 @@
 package com.gabrielrossilopes.appmalote.service;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.gabrielrossilopes.appmalote.dto.EmpresaDTO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.gabrielrossilopes.appmalote.model.dominio.Empresa;
 import com.gabrielrossilopes.appmalote.repository.EmpresaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class EmpresaService {
@@ -21,15 +20,15 @@ public class EmpresaService {
 		return empresaRepository.findAllByOrderByNome();
 	}
 	
-	public Optional<Empresa> buscaPorId(Long id) {
-		return empresaRepository.findById(id);
+	public Empresa buscaPorId(Long id) {
+		return empresaRepository.getById(id);
 	}
 
 	public void criaEmpresa(EmpresaDTO empresaDTO) {
 		Empresa empresa = new Empresa();
 
 		empresa.setNome(empresaDTO.getNome());
-		empresa.setCnpj(empresa.getCnpj());
+		empresa.setCnpj(empresaDTO.getCnpj());
 
 		empresaRepository.save(empresa);
 	}
@@ -42,7 +41,7 @@ public class EmpresaService {
 		empresaRepository.save(empresa);
 	}
 
-	public void removeEmpresa(Empresa empresa) {
+	public void removeEmpresa(Empresa empresa) throws DataIntegrityViolationException {
 		empresaRepository.delete(empresa);
 	}
 }

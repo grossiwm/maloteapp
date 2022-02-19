@@ -7,7 +7,15 @@
 <body>
 <jsp:include page="../partials/menu.jsp"/>
 <h3>Usuários</h3>
+<c:if test = "${aviso != null}">
+    <div class="alert alert-warning" role="alert">
+        <c:out value="${aviso}"/>
+    </div>
+</c:if>
 <hr size="4" color="gray"/>
+<c:if test = "${usuarioLogado.isAdmin()}">
+    <a href="/admin/cadastrar-usuario">Novo Usuário</a>
+</c:if>
 <table>
 <c:forEach items="${usuarios}" var="usuario">
     <tr>

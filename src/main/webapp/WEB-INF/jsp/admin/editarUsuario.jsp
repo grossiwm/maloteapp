@@ -20,7 +20,7 @@
         <input type="hidden" name="id" value="<c:out value='${usuario.id}' />">
         <tr>
             <td>Nome:</td>
-            <td><input type='text' name='email' value="<c:out value='${usuario.nome}' />"></td>
+            <td><input type='text' name='nome' value="<c:out value='${usuario.nome}' />"></td>
         </tr>
         <tr>
             <td>Email:</td>

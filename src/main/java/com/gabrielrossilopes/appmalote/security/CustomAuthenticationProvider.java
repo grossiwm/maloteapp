@@ -1,9 +1,8 @@
 package com.gabrielrossilopes.appmalote.security;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
+import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
+import com.gabrielrossilopes.appmalote.service.UsuarioService;
+import com.gabrielrossilopes.appmalote.session.UsuarioLogadoSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -16,9 +15,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
-import com.gabrielrossilopes.appmalote.service.UsuarioService;
-import com.gabrielrossilopes.appmalote.session.UsuarioLogadoSession;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
@@ -56,7 +55,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         usuarioLogado.setAdmin(usuario.isAdmin());
         usuarioLogado.setAceito(usuario.isAceito());
         usuarioLogado.setNome(usuario.getNome());
-
         return auth;
 	}
 

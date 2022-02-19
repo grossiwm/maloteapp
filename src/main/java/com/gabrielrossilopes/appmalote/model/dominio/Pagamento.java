@@ -1,10 +1,7 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
-import com.gabrielrossilopes.appmalote.exception.CnpjInvalidoException;
 import com.gabrielrossilopes.appmalote.model.enums.TipoTransacao;
 import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
-
-import com.gabrielrossilopes.appmalote.utils.ValidationUtils;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -57,7 +54,7 @@ public class Pagamento extends Transacao {
 	public String getCnpjRecebedor() {
 		return cnpjRecebedor;
 	}
-	public void setCnpjRecebedor(String cnpjRecebedor) throws CnpjInvalidoException {
+	public void setCnpjRecebedor(String cnpjRecebedor) {
 //		if (!ValidationUtils.validaCNPJ(cnpjRecebedor))
 //			throw new CnpjInvalidoException("cnpj " + cnpjRecebedor + " inválido");
 		
@@ -70,7 +67,8 @@ public class Pagamento extends Transacao {
 	
 	@Override
 	public String toString() {
-		return new StringBuilder().append(cnpjRecebedor).toString();
+		return new StringBuilder().append(cnpjRecebedor).append(";R$ ").append(valor)
+				.toString();
 	}
 
 }

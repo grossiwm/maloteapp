@@ -1,13 +1,8 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.*;
 
 @Entity(name="empresa")
 public class Empresa {
@@ -22,13 +17,11 @@ public class Empresa {
     @Column
 	private String nome;
 	
-    @Transient
+    @OneToMany(mappedBy = "empresa", targetEntity = Malote.class, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Malote> malotes;
 	
-    @OneToMany
-	@JoinColumn(name = "empresa_id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<Usuario> usuarios; 
+	@OneToMany(mappedBy = "empresa", targetEntity = Usuario.class, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Usuario> usuarios;
 
 	public Empresa() {
 		malotes = new ArrayList<>();

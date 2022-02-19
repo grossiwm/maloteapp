@@ -1,6 +1,7 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -8,8 +9,6 @@ import java.util.List;
 
 @Entity(name = "malote")
 public class Malote {
-	
-	
 	
 	public Malote(Empresa empresa, LocalDateTime data) {
 		this.empresa = empresa;
@@ -52,18 +51,39 @@ public class Malote {
 		this.data = data;
 	}
 
-	@OneToMany(mappedBy = "malote", targetEntity = Deposito.class, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "malote", targetEntity = Deposito.class)
 	private List<Deposito> depositos;
 
 
-	@OneToMany(mappedBy = "malote", targetEntity = Pagamento.class, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "malote", targetEntity = Pagamento.class)
 	private List<Pagamento> pagamentos;
 
-	@OneToMany(mappedBy = "malote", targetEntity = Transferencia.class, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "malote", targetEntity = Transferencia.class)
 	private List<Transferencia> transferencias;
 
 	@Transient
 	private List<Transacao> transacoes;
+
+	@Transient
+	private BigDecimal valorTotal;
+
+	public BigDecimal getValorTotal() {
+		return somaTransacoes();
+	}
+
+	private BigDecimal somaTransacoes() {
+		List<Transacao> transacoes = new ArrayList<>();
+		transacoes.addAll(depositos);
+		transacoes.addAll(transferencias);
+		transacoes.addAll(pagamentos);
+
+		return transacoes.stream().map(Transacao::getValor)
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
+
+	public void setValorTotal(BigDecimal valorTotal) {
+		this.valorTotal = valorTotal;
+	}
 
 	@Column
 	private LocalDateTime data;

@@ -1,10 +1,7 @@
-<databaseChangeLog 
-  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
-  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
-   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
-   http://www.liquibase.org/xml/ns/dbchangelog 
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     
     <changeSet author="Gabriel Rossi Lopes" id="1">
@@ -20,7 +17,7 @@
             <column name="email" type="varchar(255)" />
             <column name="senha" type="varchar(255)" />
             <column name="empresa_id" type="long" />
-            <column name="admin" type="boolean" />
+            <column name="admin" defaultValue="false" type="boolean" />
 			<column name="aceito" type="boolean" />
 			<column name="nome" type="varchar(255)" />
         </createTable>
@@ -194,9 +191,17 @@
 			<column  name="email"  value="lenon@gmail.com"/>
 			<column  name="senha"  value="123"/>
 			<column  name="admin"  value="false"/>
-			<column  name="empresa_id"  value="1"/>
+			<column  name="empresa_id"  value="2"/>
 			<column  name="aceito"  value="false"/>
 			<column  name="nome"  value="Lenon"/>
+		</insert>
+		<insert tableName="usuario">
+			<column  name="email"  value="asasn@gmail.com"/>
+			<column  name="senha"  value="123"/>
+			<column  name="admin"  value="false"/>
+			<column  name="empresa_id"  value="2"/>
+			<column  name="aceito"  value="false"/>
+			<column  name="nome"  value="Cid"/>
 		</insert>
 	</changeSet>
 	<changeSet author="Gabriel Rossi Lopes" id="9">
@@ -204,18 +209,25 @@
 		<insert tableName="malote">
 			<column name="data" value="2022-02-17 23:18:13.689612626"/>
 			<column name="empresa_id" value="1"/>
+			<column name="usuario_id" value="2"/>
 		</insert>
 		<insert tableName="malote">
 			<column name="data" value="2022-02-17 23:18:13.689612626"/>
 			<column name="empresa_id" value="1"/>
+			<column name="usuario_id" value="2"/>
+
 		</insert>
 		<insert tableName="malote">
 			<column name="data" value="2022-02-17 23:18:13.689612626"/>
-			<column name="empresa_id" value="1"/>
+			<column name="empresa_id" value="2"/>
+			<column name="usuario_id" value="7"/>
+
 		</insert>
 		<insert tableName="malote">
 			<column name="data" value="2022-02-17 23:18:13.689612626"/>
-			<column name="empresa_id" value="1"/>
+			<column name="empresa_id" value="2"/>
+			<column name="usuario_id" value="7"/>
+
 		</insert>
 	</changeSet>
 	<changeSet author="Gabriel Rossi Lopes" id="10">

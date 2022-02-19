@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 public class MaloteController {
 
 	@GetMapping("/")
-	public String index() {
+	public String index(HttpServletRequest request) {
 		return "index";
 	}
 }

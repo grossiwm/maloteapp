@@ -23,7 +23,7 @@
 action="/usuario/alterar-deposito"
 </c:if>
 <c:if test = "${deposito.id == null}">
-    action="/usuario/novo-deposito"
+    action="/usuario/novo-deposito/<c:out value='${deposito.malote.id}' />"
 </c:if>
 method='POST'>
     <c:if test = "${error}">
@@ -45,12 +45,17 @@ method='POST'>
             <td>Valor:</td>
             <td><input type='text' name='valor' value="<c:out value='${deposito.valor}' />"></td>
         </tr>
-        <td><a href="/usuario/alterar-malote/<c:out value='${deposito.malote.id}' />">ver malote</a></td>
-        <input type='hidden' name='maloteId' value="<c:out value='${deposito.malote.id}' />">
+        <c:if test = "${deposito.id != null}">
+        <tr>
+            <td><a href="/usuario/alterar-malote/<c:out value='${deposito.malote.id}' />">ver malote</a></td>
+            <input type='hidden' name='maloteId' value="<c:out value='${deposito.malote.id}' />">
+        </tr>
+        </c:if>
         <tr>
             <td><input name="submit" type="submit" value="submit" /></td>
         </tr>
     </table>
+    <a href="/usuario/listar-depositos">ver todos</a>
 </form>
 </body>
 </html>

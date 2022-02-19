@@ -1,10 +1,7 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
-import com.gabrielrossilopes.appmalote.exception.CpfInvalidoException;
 import com.gabrielrossilopes.appmalote.model.enums.TipoTransacao;
 import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
-
-import com.gabrielrossilopes.appmalote.utils.ValidationUtils;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -64,7 +61,7 @@ public class Deposito extends Transacao {
 	public String getCpfBeneficiario() {
 		return cpfBeneficiario;
 	}
-	public void setCpfBeneficiario(String cpfBeneficiario) throws CpfInvalidoException {
+	public void setCpfBeneficiario(String cpfBeneficiario) {
 //		if (!ValidationUtils.validaCPF(cpfBeneficiario))
 //			throw new CpfInvalidoException("Cpf " + cpfBeneficiario + " inválido");
 		
@@ -83,7 +80,8 @@ public class Deposito extends Transacao {
 	
 	@Override
 	public String toString() {
-		return new StringBuilder().append(cpfBeneficiario).append(";").append(nomeBeneficiario).toString();
+		return new StringBuilder().append(cpfBeneficiario).append(";").append(nomeBeneficiario).append(";R$ ").append(valor)
+				.toString();
 	}
 
 }

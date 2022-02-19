@@ -20,7 +20,7 @@
         </c:if>
         <td><a href="/usuario/alterar-transferencia/<c:out value="${t.id}"/>">Editar</a></td>
         <td><a href="/usuario/remove-transferencia/<c:out value="${t.id}"/>">Remover</a></td>
-        <td><a href="/usuario/alterar-malote/<c:out value='${t.malote.id}' />"> malote</a></td>
+        <td><a href="/usuario/alterar-malote/<c:out value='${t.malote.id}' />"> malote: <c:out value='${t.malote}' /></a></td>
     </tr>
 </c:forEach>
 </table>

@@ -13,17 +13,26 @@
         <div>
             <label> Data de criação: <c:out value="${dataCriacao}"/>
         </div>
+        <div>
+            Valor total de Transações: R$ <c:out value="${malote.valorTotal}"/>
+        </div>
     </form>
     <c:if test = "${malote.id != null}">
+    <div>
            <legend>depósitos:</legend>
+
+            <a href='/usuario/novo-deposito/<c:out value="${malote.id}"/>'>incluir depósito</a>
            <c:forEach items="${malote.depositos}" var="deposito">
                <div>
-                   <label> <c:out value="${deposito.id}"/> - <c:out value="${deposito}"/>
-                   <a href="/usuario/remove-deposito/${deposito.id}">remover</a> </ label>
-                  <a href="/usuario/alterar-deposito/${deposito.id}">alterar</a> </ label>
+                   <c:out value="${deposito.id}"/> - <c:out value="${deposito}"/>
+                   <a href="/usuario/remove-deposito/${deposito.id}">remover</a>
+                  <a href="/usuario/alterar-deposito/${deposito.id}">alterar</a>
                </div>
            </c:forEach>
+           </div>
+           <div>
           <legend>transferências:</legend>
+        <a href='/usuario/nova-transferencia/<c:out value="${malote.id}"/>'>incluir transferencia</a>
           <c:forEach items="${malote.transferencias}" var="transferencia">
               <div>
                   <label> <c:out value="${transferencia.id}"/> - <c:out value="${transferencia}"/>
@@ -31,6 +40,8 @@
                   <a href="/usuario/alterar-transferencia/${transferencia.id}">alterar</a> </ label>
               </div>
           </c:forEach>
+          </div>
+          <div>
           <legend>Pagamentos:</legend>
           <a href='/usuario/novo-pagamento/<c:out value="${malote.id}"/>'>incluir pagamento</a>
         <c:forEach items="${malote.pagamentos}" var="pagamento">
@@ -41,6 +52,8 @@
 
                 </div>
             </c:forEach>
+           <br/>
+           </div>
     </c:if>
 
 </body>

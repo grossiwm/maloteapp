@@ -1,23 +1,19 @@
 package com.gabrielrossilopes.appmalote.controller;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-
 import com.gabrielrossilopes.appmalote.dto.EmpresaDTO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.gabrielrossilopes.appmalote.dto.UsuarioDTO;
 import com.gabrielrossilopes.appmalote.model.dominio.Empresa;
 import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
 import com.gabrielrossilopes.appmalote.service.EmpresaService;
 import com.gabrielrossilopes.appmalote.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -38,9 +34,9 @@ public class AdminController {
 	@PostMapping("/cadastrar-usuario")
 	public String recebeUsuario(UsuarioDTO usuarioDTO, Model model) {
 		try {
-			Optional<Empresa> empresaOp = empresaService.buscaPorId(usuarioDTO.getEmpresa());
+			Empresa empresa = empresaService.buscaPorId(usuarioDTO.getEmpresa());
 			Usuario usuario = new Usuario();
-			usuario.setEmpresa(empresaOp.get());
+			usuario.setEmpresa(empresa);
 			usuario.setEmail(usuarioDTO.getEmail());
 			usuario.setSenha(usuarioDTO.getSenha());
 			usuario.setNome(usuarioDTO.getNome());
@@ -56,17 +52,16 @@ public class AdminController {
 	}
 	
 	@GetMapping("/listar-usuarios")
-	public String listarUsuarios(Model model) {
+	public String listarUsuarios(Model model, @RequestParam(required = false) String aviso) {
 		List<Usuario> usuarios = usuarioService.busucaTodos();
-		usuarios = usuarios.stream().filter(u -> !u.isAdmin()).sorted(Comparator.comparing(Usuario::getNome))
-				.toList();
 		model.addAttribute("usuarios", usuarios);
+		model.addAttribute("aviso", aviso);
 		return "admin/listarUsuarios";
 	}
 
 	@GetMapping("/editar-usuario/{id}")
 	public String alteraUsuario(Model model, @PathVariable Long id) {
-		Usuario usuario = usuarioService.getUsuarioById(id).get();
+		Usuario usuario = usuarioService.getUsuarioById(id);
 		UsuarioDTO usuarioDTO = UsuarioDTO.getUsuarioDTOdeUsuario(usuario);
 		model.addAttribute("usuario", usuarioDTO);
 		model.addAttribute("empresas", empresaService.buscaTodasOrdenado());
@@ -76,11 +71,12 @@ public class AdminController {
 	@PostMapping("/editar-usuario")
 	public String alteraUsuario(UsuarioDTO usuarioDTO, Model model) {
 		try {
-			Optional<Empresa> empresaOp = empresaService.buscaPorId(usuarioDTO.getEmpresa());
-			Usuario usuario = usuarioService.getUsuarioById(usuarioDTO.getId()).get();
-			usuario.setEmpresa(empresaOp.get());
+			Empresa empresa = empresaService.buscaPorId(usuarioDTO.getEmpresa());
+			Usuario usuario = usuarioService.getUsuarioById(usuarioDTO.getId());
+			usuario.setEmpresa(empresa);
 			usuario.setEmail(usuarioDTO.getEmail());
 			usuario.setSenha(usuarioDTO.getSenha());
+			usuario.setNome(usuarioDTO.getNome());
 			usuarioService.cadastrarUsuario(usuario);
 			return "redirect:/admin/listar-usuarios";
 		} catch (Exception e) {
@@ -93,9 +89,13 @@ public class AdminController {
 	}
 
 	@GetMapping("/remove-usuario/{id}")
-	public String excluirUsuario(@PathVariable Long id) {
-		Usuario usuario = usuarioService.getUsuarioById(id).get();
-		usuarioService.removeUsuario(usuario);
+	public String excluirUsuario(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+		Usuario usuario = usuarioService.getUsuarioById(id);
+		try {
+			usuarioService.removeUsuario(usuario);
+		} catch (DataIntegrityViolationException e) {
+			redirectAttributes.addAttribute("aviso", "Usuário possui malotes com transações associadas");
+		}
 		return "redirect:/admin/listar-usuarios";
 	}
 
@@ -114,9 +114,10 @@ public class AdminController {
 	}
 	
 	@GetMapping("/listar-empresas")
-	public String listarEmpresas(Model model) {
+	public String listarEmpresas(Model model, @RequestParam(required = false) String aviso) {
 		List<Empresa> empresas = empresaService.buscaTodasOrdenado();
 		model.addAttribute("empresas", empresas);
+		model.addAttribute("aviso", aviso);
 		return "admin/listarEmpresas";
 	}
 
@@ -140,7 +141,7 @@ public class AdminController {
 
 	@GetMapping("/editar-empresa/{id}")
 	public String editarEmpresa(Model model, @PathVariable Long id) {
-		Empresa empresa = empresaService.buscaPorId(id).get();
+		Empresa empresa = empresaService.buscaPorId(id);
 		EmpresaDTO empresaDTO = EmpresaDTO.getEmpresaDTOdeEmpresa(empresa);
 		model.addAttribute("empresa", empresaDTO);
 		return "admin/editarEmpresa";
@@ -159,9 +160,13 @@ public class AdminController {
 	}
 
 	@GetMapping("/remove-empresa/{id}")
-	public String excluirEmpresa(@PathVariable Long id) {
-		Empresa empresa = empresaService.buscaPorId(id).get();
-		empresaService.removeEmpresa(empresa);
+	public String excluirEmpresa(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+		Empresa empresa = empresaService.buscaPorId(id);
+		try {
+			empresaService.removeEmpresa(empresa);
+		} catch (DataIntegrityViolationException e) {
+			redirectAttributes.addAttribute("aviso", "Não é possível remover empresa, pois esta possui malotes com transações associadas");
+		}
 		return "redirect:/admin/listar-empresas";
 	}
 	

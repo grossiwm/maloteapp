@@ -1,10 +1,7 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
-import com.gabrielrossilopes.appmalote.exception.ContaInvalidaException;
 import com.gabrielrossilopes.appmalote.model.enums.TipoTransacao;
 import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
-
-import com.gabrielrossilopes.appmalote.utils.ValidationUtils;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -60,9 +57,9 @@ public class Transferencia extends Transacao {
 	public String getContaDestino() {
 		return contaDestino;
 	}
-	public void setContaDestino(String contaDestino) throws ContaInvalidaException {
-		if (!ValidationUtils.validaConta(contaDestino))
-			throw new ContaInvalidaException("Conta " + contaDestino + " inválida");
+	public void setContaDestino(String contaDestino)  {
+//		if (!ValidationUtils.validaConta(contaDestino))
+//			throw new ContaInvalidaException("Conta " + contaDestino + " inválida");
 			
 		this.contaDestino = contaDestino;
 	}
@@ -80,7 +77,8 @@ public class Transferencia extends Transacao {
 	
 	@Override
 	public String toString() {
-		return new StringBuilder().append(contaDestino).append(";").append(contaOrigem).toString();
+		return new StringBuilder().append(contaDestino).append(";").append(contaOrigem).append(";R$ ").append(valor)
+				.toString();
 	}
 
 }

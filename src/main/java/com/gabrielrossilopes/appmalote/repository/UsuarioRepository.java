@@ -1,11 +1,10 @@
 package com.gabrielrossilopes.appmalote.repository;
 
-import java.util.Optional;
-
+import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
+import java.util.Optional;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {

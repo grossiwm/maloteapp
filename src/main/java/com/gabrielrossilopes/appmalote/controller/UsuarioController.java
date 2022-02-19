@@ -3,19 +3,18 @@ package com.gabrielrossilopes.appmalote.controller;
 import com.gabrielrossilopes.appmalote.dto.UsuarioDTO;
 import com.gabrielrossilopes.appmalote.model.dominio.*;
 import com.gabrielrossilopes.appmalote.service.*;
+import com.gabrielrossilopes.appmalote.session.UsuarioLogadoSession;
 import com.gabrielrossilopes.appmalote.utils.DataUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import com.gabrielrossilopes.appmalote.session.UsuarioLogadoSession;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/usuario")
@@ -42,9 +41,10 @@ public class UsuarioController {
 	@Autowired
 	private TransferenciaService transferenciaService;
 
+
 	@GetMapping("/perfil")
 	public String perfil(Model model) {
-		Usuario usuario = usuarioService.getUsuarioById(usuarioLogado.getId()).get();
+		Usuario usuario = usuarioService.getUsuarioById(usuarioLogado.getId());
 		model.addAttribute("usuario", usuario);
 		return "perfil";
 	}
@@ -63,11 +63,11 @@ public class UsuarioController {
 
 	@PostMapping("/solicitar-acesso")
 	public String processaSolicitacao(UsuarioDTO usuarioDTO) {
-		Optional<Empresa> empresaOp = empresaService.buscaPorId(usuarioDTO.getEmpresa());
+		Empresa empresa = empresaService.buscaPorId(usuarioDTO.getEmpresa());
 
 		Usuario usuario = new Usuario();
 		usuario.setNome(usuarioDTO.getNome());
-		usuario.setEmpresa(empresaOp.get());
+		usuario.setEmpresa(empresa);
 		usuario.setEmail(usuarioDTO.getEmail());
 		usuario.setSenha(usuarioDTO.getSenha());
 		usuario.setAdmin(false);
@@ -90,14 +90,13 @@ public class UsuarioController {
 	@GetMapping("/listar-usuarios")
 	public String listarUsuarios(Model model) {
 		List<Usuario> usuarios = usuarioService.busucaTodos();
-		usuarios = usuarios.stream().filter(u -> !u.isAdmin()).sorted(Comparator.comparing(Usuario::getNome)).toList();
 		model.addAttribute("usuarios", usuarios);
 		return "admin/listarUsuarios";
 	}
 
 	@GetMapping("/listar-depositos")
 	public String listarDepositos(Model model) {
-		List<Deposito> depositos = depositoService.getAllDepositos().stream().sorted(Comparator.comparing(Deposito::getNomeBeneficiario)).toList();
+		List<Deposito> depositos = depositoService.getAllDepositos();
 		model.addAttribute("depositos", depositos);
 		return "listarDepositos";
 	}
@@ -111,8 +110,8 @@ public class UsuarioController {
 
 	@PostMapping("/alterar-deposito")
 	public String alterarDeposito(Deposito deposito) {
-		depositoService.salvaDeposito(deposito);
-		return "redirect:/usuario/listar-depositos";
+		Deposito deposito1 = depositoService.alteraDeposito(deposito);
+		return "redirect:/usuario/alterar-malote/" + deposito1.getMalote().getId();
 	}
 
 	@GetMapping("/novo-deposito/{maloteId}")
@@ -129,14 +128,14 @@ public class UsuarioController {
 		Malote malote = maloteService.getById(maloteId);
 		deposito.setMalote(malote);
 		depositoService.salvaDeposito(deposito);
-		return "redirect:/usuario/listar-depositos";
+		return "redirect:/usuario/alterar-malote/" + deposito.getMalote().getId();
 	}
 
 	@GetMapping("/remove-deposito/{id}")
 	public String removeDeposito(@PathVariable Long id) {
 		Deposito deposito = depositoService.buscaPorId(id);
 		depositoService.removeDeposito(deposito);
-		return "redirect:/usuario/listar-depositos";
+		return "redirect:/usuario/alterar-malote/" + deposito.getMalote().getId();
 	}
 
 	@GetMapping("/listar-pagamentos")
@@ -155,8 +154,8 @@ public class UsuarioController {
 
 	@PostMapping("/alterar-pagamento")
 	public String alterarPagamento(Pagamento pagamento) {
-		pagamentoService.salvarPagamento(pagamento);
-		return "redirect:/usuario/listar-pagamentos";
+		Pagamento pagamento1 = pagamentoService.alterarPagamento(pagamento);
+		return "redirect:/usuario/alterar-malote/" + pagamento1.getMalote().getId();
 	}
 
 	@GetMapping("/novo-pagamento/{maloteId}")
@@ -173,19 +172,19 @@ public class UsuarioController {
 		Malote malote = maloteService.getById(maloteId);
 		pagamento.setMalote(malote);
 		pagamentoService.salvarPagamento(pagamento);
-		return "redirect:/usuario/listar-pagamentos";
+		return "redirect:/usuario/alterar-malote/" + pagamento.getMalote().getId();
 	}
 
 	@GetMapping("/remove-pagamento/{id}")
 	public String removePagamento(@PathVariable Long id) {
 		Pagamento pagamento = pagamentoService.buscarPorId(id);
 		pagamentoService.removerPagamento(pagamento);
-		return "redirect:/usuario/listar-pagamentos";
+		return "redirect:/usuario/alterar-malote/" + pagamento.getMalote().getId();
 	}
 
 	@GetMapping("/listar-transferencias")
 	public String listarTransferencias(Model model) {
-		List<Transferencia> transferencias = transferenciaService.getAllTransferencia();
+		List<Transferencia> transferencias = transferenciaService.getAllTransferencia().stream().sorted(Comparator.comparing(Transferencia::getContaOrigem)).toList();
 		model.addAttribute("transferencias", transferencias);
 		return "listarTransferencias";
 	}
@@ -199,8 +198,8 @@ public class UsuarioController {
 
 	@PostMapping("/alterar-transferencia")
 	public String alterarTransferencia(Transferencia transferencia) {
-		transferenciaService.salvaTransferencia(transferencia);
-		return "redirect:/usuario/listar-transferencias";
+		Transferencia transferencia1 = transferenciaService.alteraTransferencia(transferencia);
+		return "redirect:/usuario/alterar-malote/" + transferencia1.getMalote().getId();
 	}
 
 	@GetMapping("/nova-transferencia/{maloteId}")
@@ -217,19 +216,19 @@ public class UsuarioController {
 		Malote malote = maloteService.getById(maloteId);
 		transferencia.setMalote(malote);
 		transferenciaService.salvaTransferencia(transferencia);
-		return "redirect:/usuario/listar-transferencias";
+		return "redirect:/usuario/alterar-malote/" + transferencia.getMalote().getId();
 	}
 
 	@GetMapping("/remove-transferencia/{id}")
 	public String removeTransferencia(@PathVariable Long id) {
 		Transferencia transferencia = transferenciaService.buscaPorId(id);
 		transferenciaService.removeTransferencia(transferencia);
-		return "redirect:/usuario/listar-transferencias";
+		return "redirect:/usuario/alterar-malote/" + transferencia.getMalote().getId();
 	}
 
 	@GetMapping("/novo-malote")
 	public String novoMalote(Model model) {
-		Usuario usuario = usuarioService.getUsuarioById(usuarioLogado.getId()).get();
+		Usuario usuario = usuarioService.getUsuarioById(usuarioLogado.getId());
 		Malote malote = new Malote();
 		malote.setEmpresa(usuario.getEmpresa());
 		malote.setUsuario(usuario);
@@ -259,6 +258,26 @@ public class UsuarioController {
 		});
 
 		return "redirect:/usuario/alterar-malote/" + id;
+	}
+
+	@GetMapping("/listar-malotes")
+	public String listaMalotes(Model model, @RequestParam(required = false) String aviso) {
+		List<Malote> malotes = maloteService.buscaTodos();
+		model.addAttribute("malotes", malotes);
+		model.addAttribute("aviso", aviso);
+
+		return "listarMalotes";
+	}
+
+	@GetMapping("/remove-malote/{id}")
+	public String removeMalotes(Model model, @PathVariable Long id, RedirectAttributes redirectAttributes) {
+		Malote malote = maloteService.getById(id);
+		try {
+			maloteService.removeMalote(malote);
+		} catch (DataIntegrityViolationException e) {
+			redirectAttributes.addAttribute("aviso", "Não é possível remover malote pois existem transações associadas");
+		}
+		return "redirect:/usuario/listar-malotes";
 	}
 
 }

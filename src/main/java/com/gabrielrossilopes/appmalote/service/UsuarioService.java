@@ -1,13 +1,14 @@
 package com.gabrielrossilopes.appmalote.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
 import com.gabrielrossilopes.appmalote.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Service;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -18,8 +19,8 @@ public class UsuarioService {
         return usuarioRepository.findByEmail(email);
     }
 
-    public Optional<Usuario> getUsuarioById(Long id) {
-        return usuarioRepository.findById(id);
+    public Usuario getUsuarioById(Long id) {
+        return usuarioRepository.getById(id);
     }
     
     public Usuario cadastrarUsuario(Usuario usuario) {
@@ -27,7 +28,7 @@ public class UsuarioService {
     }
     
     public List<Usuario> busucaTodos() {
-    	return usuarioRepository.findAll();
+    	return usuarioRepository.findAll().stream().filter(u -> !u.isAdmin()).sorted(Comparator.comparing(Usuario::getNome)).toList();
     }
 
     public void aceitarUsuario(long id) {
@@ -36,7 +37,7 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
     }
 
-    public void removeUsuario(Usuario usuario) {
+    public void removeUsuario(Usuario usuario) throws DataIntegrityViolationException {
         usuarioRepository.delete(usuario);
     }
 

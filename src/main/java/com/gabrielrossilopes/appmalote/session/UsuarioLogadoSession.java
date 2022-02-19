@@ -27,7 +27,7 @@ public class UsuarioLogadoSession {
 	}
 
 	public boolean isNull() {
-		return Objects.isNull(email) && Objects.isNull(id);
+		return Objects.isNull(id);
 	}
 
 	public boolean isAceito() {
@@ -61,5 +61,5 @@ public class UsuarioLogadoSession {
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
-    
+
 }

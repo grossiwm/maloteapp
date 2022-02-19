@@ -3,9 +3,7 @@ package com.gabrielrossilopes.appmalote.model.dominio;
 import com.gabrielrossilopes.appmalote.model.enums.TipoTransacao;
 import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import java.math.BigDecimal;
 
 public abstract class Transacao {
 
@@ -26,6 +24,8 @@ public abstract class Transacao {
 		return new StringBuilder().append(";").append(status.name()).toString();
 		
 	}
+
+	public abstract BigDecimal getValor();
 	
 	public abstract TipoTransacao getTipoTransacao();
 	

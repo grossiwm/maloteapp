@@ -15,7 +15,7 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
-                <c:if test = "${!usuarioLogado.isNull()}">
+                <c:if test = "${usuarioLogado != null && !usuarioLogado.admin}">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/usuario/perfil">Perfil</a>
                     </li>
@@ -23,27 +23,45 @@
                         <a class="nav-link active" aria-current="page" href="/usuario/listar-usuarios">Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/usuario/novo-malote">Criar Malote</a>
+                        <a class="nav-link active" aria-current="page" href="/usuario/listar-malotes">Malotes</a>
                     </li>
-                    <c:if test = "${usuarioLogado.isAdmin()}">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/cadastrar-usuario">Novo Usuário</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/listar-usuarios">Usuarios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/listar-solicitacoes">Solicitações</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/listar-empresas">Empresas</a>
-                        </li>
-                    </c:if>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/usuario/listar-transferencias">Transferências</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/usuario/listar-pagamentos">Pagamentos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/usuario/listar-depositos">Depósitos</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
                 </c:if>
-                <c:if test = "${usuarioLogado.isNull()}">
+                <c:if test = "${usuarioLogado.admin}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/listar-usuarios">Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/listar-empresas">Empresas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/usuario/listar-malotes">Malotes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/usuario/listar-transferencias">Transferências</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/usuario/listar-pagamentos">Pagamentos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/usuario/listar-depositos">Depósitos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </c:if>
+                <c:if test = "${usuarioLogado == null}">
                     <a class="nav-link" href="/login">Login</a>
                     <a class="nav-link" href="/usuario/solicitar-acesso">Cadastrar</a>
                 </c:if>

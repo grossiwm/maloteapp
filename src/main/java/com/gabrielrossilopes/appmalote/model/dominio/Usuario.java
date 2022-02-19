@@ -1,9 +1,8 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-
-import javax.persistence.*;
 
 @Entity(name="usuario")
 public class Usuario {
@@ -28,7 +27,7 @@ public class Usuario {
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
 
-	@OneToMany(mappedBy = "usuario", targetEntity = Malote.class, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "usuario", targetEntity = Malote.class, cascade = CascadeType.ALL)
 	private List<Malote> malotes;
 
 	@Column

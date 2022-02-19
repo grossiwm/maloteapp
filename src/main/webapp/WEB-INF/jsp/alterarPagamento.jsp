@@ -38,9 +38,11 @@ method='POST'>
         <tr>
             <td>Valor:</td>
             <td><input type='text' name='valor' value="<c:out value='${pagamento.valor}' />"></td>
-            <td><a href="/usuario/alterar-malote/<c:out value='${pagamento.malote.id}' />">ver malote</a></td>
         </tr>
-        <input type='hidden' name='maloteId' value="<c:out value='${pagamento.malote.id}' />">
+        <c:if test = "${pagamento.id != null}">
+            <input type='hidden' name='maloteId' value="<c:out value='${pagamento.malote.id}' />">
+            <td><a href="/usuario/alterar-malote/<c:out value='${pagamento.malote.id}' />">ver malote</a></td>
+        </c:if>
         <tr>
             <td><input name="submit" type="submit" value="submit" /></td>
         </tr>

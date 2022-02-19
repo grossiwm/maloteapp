@@ -8,6 +8,12 @@
 <jsp:include page="../partials/menu.jsp"/>
 <h3>Empresas</h3>
 <hr size="4" color="gray"/>
+<a href="/admin/cadastrar-empresa">Nova empresa</a>
+<c:if test = "${aviso != null}">
+    <div class="alert alert-warning" role="alert">
+        <c:out value="${aviso}"/>
+    </div>
+</c:if>
 <table>
 <c:forEach items="${empresas}" var="empresa">
     <tr>
