@@ -1,12 +1,12 @@
 package com.gabrielrossilopes.appmalote.model.tests;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.gabrielrossilopes.appmalote.model.dominio.Deposito;
 import com.gabrielrossilopes.appmalote.model.dominio.Pagamento;
 import com.gabrielrossilopes.appmalote.model.dominio.Transacao;
 import com.gabrielrossilopes.appmalote.model.dominio.Transferencia;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransacaoTest {
 

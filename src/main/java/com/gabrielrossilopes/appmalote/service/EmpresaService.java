@@ -1,14 +1,13 @@
 package com.gabrielrossilopes.appmalote.service;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.gabrielrossilopes.appmalote.dto.EmpresaDTO;
+import com.gabrielrossilopes.appmalote.model.dominio.Empresa;
+import com.gabrielrossilopes.appmalote.repository.EmpresaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gabrielrossilopes.appmalote.model.dominio.Empresa;
-import com.gabrielrossilopes.appmalote.repository.EmpresaRepository;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmpresaService {
@@ -29,7 +28,7 @@ public class EmpresaService {
 		Empresa empresa = new Empresa();
 
 		empresa.setNome(empresaDTO.getNome());
-		empresa.setCnpj(empresa.getCnpj());
+		empresa.setCnpj(empresaDTO.getCnpj());
 
 		empresaRepository.save(empresa);
 	}

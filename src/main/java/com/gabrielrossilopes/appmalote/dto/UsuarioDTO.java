@@ -1,7 +1,6 @@
 package com.gabrielrossilopes.appmalote.dto;
 
 import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
-import liquibase.pro.packaged.U;
 
 public class UsuarioDTO {
 

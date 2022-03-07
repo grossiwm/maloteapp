@@ -1,9 +1,9 @@
 package com.gabrielrossilopes.appmalote.model.tests;
 
-import java.util.List;
-
 import com.gabrielrossilopes.appmalote.model.dominio.Empresa;
 import com.gabrielrossilopes.appmalote.model.dominio.Malote;
+
+import java.util.List;
 
 public class EmpresaTest {
 	

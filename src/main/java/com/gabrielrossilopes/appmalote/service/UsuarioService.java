@@ -1,13 +1,12 @@
 package com.gabrielrossilopes.appmalote.service;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
+import com.gabrielrossilopes.appmalote.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
-import com.gabrielrossilopes.appmalote.repository.UsuarioRepository;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {

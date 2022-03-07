@@ -1,13 +1,12 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
-import org.hibernate.annotations.Cascade;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.*;
 
 @Entity(name="empresa")
 public class Empresa {
@@ -21,10 +20,12 @@ public class Empresa {
 	
     @Column
 	private String nome;
-	
+
+	@JsonIgnore
     @Transient
 	private List<Malote> malotes;
-	
+
+	@JsonIgnore
     @OneToMany
 	@JoinColumn(name = "empresa_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)

@@ -1,8 +1,10 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
-import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity(name="usuario")
 public class Usuario {
@@ -46,7 +48,8 @@ public class Usuario {
     
     @Column
     private Boolean admin;
-    
+
+	@JsonIgnore
 	@ManyToOne
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;

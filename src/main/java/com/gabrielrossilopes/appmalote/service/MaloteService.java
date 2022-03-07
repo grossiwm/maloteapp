@@ -1,8 +1,6 @@
 package com.gabrielrossilopes.appmalote.service;
 
-import com.gabrielrossilopes.appmalote.model.dominio.Deposito;
 import com.gabrielrossilopes.appmalote.model.dominio.Malote;
-import com.gabrielrossilopes.appmalote.repository.DepositoRepository;
 import com.gabrielrossilopes.appmalote.repository.MaloteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

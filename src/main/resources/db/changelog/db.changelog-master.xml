@@ -1,10 +1,7 @@
-<databaseChangeLog 
-  xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
-  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
-   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
-   http://www.liquibase.org/xml/ns/dbchangelog 
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     
     <changeSet author="Gabriel Rossi Lopes" id="1">
@@ -233,7 +230,7 @@
 	</changeSet>
 
 	<changeSet author="Gabriel Rossi Lopes" id="11">
-		<!-- seed pagamento -->
+		<!-- seed transferencia -->
 		<insert tableName="transferencia">
 			<column  name="conta_destino"  value="78787878"/>
 			<column  name="conta_origem"  value="1231312123"/>
