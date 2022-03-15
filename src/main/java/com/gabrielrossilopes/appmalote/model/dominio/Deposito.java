@@ -3,19 +3,14 @@ package com.gabrielrossilopes.appmalote.model.dominio;
 import com.gabrielrossilopes.appmalote.model.enums.TipoTransacao;
 import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity(name = "deposito")
 public class Deposito extends Transacao {
 
-	@Column(name = "cpf_beneficiario")
 	private String cpfBeneficiario;
 
-	@Column(name = "nome_beneficiario")
 	private String nomeBeneficiario;
 
-	@Column
 	private BigDecimal valor;
 
 	public BigDecimal getValor() {
@@ -26,9 +21,6 @@ public class Deposito extends Transacao {
 		this.valor = valor;
 	}
 
-	@Id
-	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	public Long getId() {
@@ -43,8 +35,7 @@ public class Deposito extends Transacao {
 		this.malote = malote;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "malote_id")
+
 	private Malote malote;
 	
 	public Deposito() {
@@ -62,9 +53,7 @@ public class Deposito extends Transacao {
 		return cpfBeneficiario;
 	}
 	public void setCpfBeneficiario(String cpfBeneficiario) {
-//		if (!ValidationUtils.validaCPF(cpfBeneficiario))
-//			throw new CpfInvalidoException("Cpf " + cpfBeneficiario + " inválido");
-		
+
 		this.cpfBeneficiario = cpfBeneficiario;
 	}
 	public String getNomeBeneficiario() {

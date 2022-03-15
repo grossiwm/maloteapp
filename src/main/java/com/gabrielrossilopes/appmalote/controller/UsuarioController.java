@@ -6,7 +6,6 @@ import com.gabrielrossilopes.appmalote.service.*;
 import com.gabrielrossilopes.appmalote.session.UsuarioLogadoSession;
 import com.gabrielrossilopes.appmalote.utils.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -272,11 +271,9 @@ public class UsuarioController {
 	@GetMapping("/remove-malote/{id}")
 	public String removeMalotes(Model model, @PathVariable Long id, RedirectAttributes redirectAttributes) {
 		Malote malote = maloteService.getById(id);
-		try {
-			maloteService.removeMalote(malote);
-		} catch (DataIntegrityViolationException e) {
-			redirectAttributes.addAttribute("aviso", "Não é possível remover malote pois existem transações associadas");
-		}
+
+		maloteService.removeMalote(malote);
+
 		return "redirect:/usuario/listar-malotes";
 	}
 

@@ -1,36 +1,24 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
-import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-@Entity(name="usuario")
 public class Usuario {
 	
-    @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
 	private long id;
 	
-    @Column
 	private String email;
 
-	@Column
 	private String nome;
 
-	@Column
 	private String senha;
     
-    @Column
     private Boolean admin;
     
-	@ManyToOne
-    @JoinColumn(name = "empresa_id")
     private Empresa empresa;
 
-	@OneToMany(mappedBy = "usuario", targetEntity = Malote.class, cascade = CascadeType.ALL)
 	private List<Malote> malotes;
 
-	@Column
 	private Boolean aceito;
 
 	public String getNome() {

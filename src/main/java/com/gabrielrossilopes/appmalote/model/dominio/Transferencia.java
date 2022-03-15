@@ -3,15 +3,11 @@ package com.gabrielrossilopes.appmalote.model.dominio;
 import com.gabrielrossilopes.appmalote.model.enums.TipoTransacao;
 import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity(name="transferencia")
 public class Transferencia extends Transacao {
 
-	@Column(name = "conta_destino")
 	private String contaDestino;
-	@Column(name = "conta_origem")
 	private String contaOrigem;
 
 	public BigDecimal getValor() {
@@ -22,7 +18,6 @@ public class Transferencia extends Transacao {
 		this.valor = valor;
 	}
 
-	@Column
 	private BigDecimal valor;
 
 	public Long getId() {
@@ -33,9 +28,6 @@ public class Transferencia extends Transacao {
 		this.id = id;
 	}
 
-	@Id
-	@Column
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	public Malote getMalote() {
@@ -50,8 +42,6 @@ public class Transferencia extends Transacao {
 		this.status = status;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "malote_id")
 	private Malote malote;
 
 	public String getContaDestino() {

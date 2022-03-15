@@ -1,13 +1,11 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "malote")
 public class Malote {
 	
 	public Malote(Empresa empresa, LocalDateTime data) {
@@ -22,17 +20,10 @@ public class Malote {
 	}
 
 
-	@Id
-	@Column
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne
-	@JoinColumn(name = "empresa_id")
 	private Empresa empresa;
 
-	@ManyToOne
-	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 
 	public void setTransacoes(List<Transacao> transacoes) {
@@ -51,20 +42,15 @@ public class Malote {
 		this.data = data;
 	}
 
-	@OneToMany(mappedBy = "malote", targetEntity = Deposito.class)
 	private List<Deposito> depositos;
 
 
-	@OneToMany(mappedBy = "malote", targetEntity = Pagamento.class)
 	private List<Pagamento> pagamentos;
 
-	@OneToMany(mappedBy = "malote", targetEntity = Transferencia.class)
 	private List<Transferencia> transferencias;
 
-	@Transient
 	private List<Transacao> transacoes;
 
-	@Transient
 	private BigDecimal valorTotal;
 
 	public BigDecimal getValorTotal() {
@@ -85,7 +71,6 @@ public class Malote {
 		this.valorTotal = valorTotal;
 	}
 
-	@Column
 	private LocalDateTime data;
 
 	@Override

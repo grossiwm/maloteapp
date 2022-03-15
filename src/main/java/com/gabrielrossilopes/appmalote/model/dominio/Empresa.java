@@ -1,26 +1,18 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name="empresa")
 public class Empresa {
-	
-    @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+
 	private Long id;
     
-    @Column
 	private String cnpj;
 	
-    @Column
 	private String nome;
 	
-    @OneToMany(mappedBy = "empresa", targetEntity = Malote.class, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Malote> malotes;
 	
-	@OneToMany(mappedBy = "empresa", targetEntity = Usuario.class, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Usuario> usuarios;
 
 	public Empresa() {

@@ -7,7 +7,6 @@ import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
 import com.gabrielrossilopes.appmalote.service.EmpresaService;
 import com.gabrielrossilopes.appmalote.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -91,11 +90,8 @@ public class AdminController {
 	@GetMapping("/remove-usuario/{id}")
 	public String excluirUsuario(@PathVariable Long id, RedirectAttributes redirectAttributes) {
 		Usuario usuario = usuarioService.getUsuarioById(id);
-		try {
 			usuarioService.removeUsuario(usuario);
-		} catch (DataIntegrityViolationException e) {
-			redirectAttributes.addAttribute("aviso", "Usuário possui malotes com transações associadas");
-		}
+
 		return "redirect:/admin/listar-usuarios";
 	}
 
@@ -162,11 +158,8 @@ public class AdminController {
 	@GetMapping("/remove-empresa/{id}")
 	public String excluirEmpresa(@PathVariable Long id, RedirectAttributes redirectAttributes) {
 		Empresa empresa = empresaService.buscaPorId(id);
-		try {
-			empresaService.removeEmpresa(empresa);
-		} catch (DataIntegrityViolationException e) {
-			redirectAttributes.addAttribute("aviso", "Não é possível remover empresa, pois esta possui malotes com transações associadas");
-		}
+		empresaService.removeEmpresa(empresa);
+
 		return "redirect:/admin/listar-empresas";
 	}
 	

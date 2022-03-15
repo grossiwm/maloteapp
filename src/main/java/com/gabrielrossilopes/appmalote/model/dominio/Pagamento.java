@@ -3,25 +3,16 @@ package com.gabrielrossilopes.appmalote.model.dominio;
 import com.gabrielrossilopes.appmalote.model.enums.TipoTransacao;
 import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity(name = "pagamento")
 public class Pagamento extends Transacao {
 
-	@Column(name = "cnpj_recebedor")
 	private String cnpjRecebedor;
 
-	@ManyToOne
-	@JoinColumn(name = "malote_id")
 	private Malote malote;
 
-	@Id
-	@Column
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column
 	private BigDecimal valor;
 
 	public BigDecimal getValor() {
