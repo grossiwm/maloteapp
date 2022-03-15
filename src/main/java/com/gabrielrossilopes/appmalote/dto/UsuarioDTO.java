@@ -14,6 +14,16 @@ public class UsuarioDTO {
 
 	private String nome;
 
+	private boolean isAdmin;
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean admin) {
+		isAdmin = admin;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -63,5 +73,13 @@ public class UsuarioDTO {
 		usuarioDTO.setNome(usuario.getNome());
 
 		return usuarioDTO;
+	}
+
+	public UsuarioDTO() {
+	}
+
+	public UsuarioDTO(String email, String senha) {
+		this.email = email;
+		this.senha = senha;
 	}
 }

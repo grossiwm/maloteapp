@@ -51,8 +51,13 @@ public class UsuarioService {
 //        usuarioRepository.delete(usuario);
     }
 
-    public Usuario autenticar(UsuarioDTO usuarioDTO) {
-        return restTemplate.postForObject(apiRoot.concat("/validar"), usuarioDTO, Usuario.class);
+    public Optional<UsuarioDTO> autenticar(String email, String senha) {
+        UsuarioDTO usuarioDTO = new UsuarioDTO(email, senha);
+        try {
+            return Optional.ofNullable(restTemplate.postForObject(apiRoot.concat("/validar"), usuarioDTO, UsuarioDTO.class));
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
 
 }
