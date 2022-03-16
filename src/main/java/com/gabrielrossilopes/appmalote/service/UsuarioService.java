@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -21,23 +22,19 @@ public class UsuarioService {
 
 
     public Optional<Usuario> getUsuarioByEmail(String email) {
-//        return usuarioRepository.findByEmail(email);
-        return null;
+        return Optional.ofNullable(restTemplate.getForObject(apiRoot.concat("/by-email/").concat(email), Usuario.class));
     }
 
     public Usuario getUsuarioById(Long id) {
-//        return usuarioRepository.getById(id);
-        return null;
+        return restTemplate.getForObject(apiRoot.concat("/") + id, Usuario.class);
     }
     
     public Usuario cadastrarUsuario(Usuario usuario) {
-//        return usuarioRepository.save(usuario);
-        return null;
+        return restTemplate.postForObject(apiRoot, usuario, Usuario.class);
     }
     
     public List<Usuario> busucaTodos() {
-//    	return usuarioRepository.findAll().stream().filter(u -> !u.isAdmin()).sorted(Comparator.comparing(Usuario::getNome)).toList();
-        return null;
+        return List.of(Objects.requireNonNull(restTemplate.getForObject(apiRoot, Usuario[].class)));
     }
 
     public void aceitarUsuario(long id) {
@@ -48,7 +45,7 @@ public class UsuarioService {
     }
 
     public void removeUsuario(Usuario usuario) {
-//        usuarioRepository.delete(usuario);
+        restTemplate.delete(apiRoot.concat("/") + usuario.getId());
     }
 
     public Optional<UsuarioDTO> autenticar(String email, String senha) {
