@@ -40,6 +40,11 @@ public class UsuarioController {
 	@Autowired
 	private TransferenciaService transferenciaService;
 
+	@GetMapping("/")
+	public String index() {
+		return "index";
+	}
+
 
 	@GetMapping("/perfil")
 	public String perfil(Model model) {
@@ -197,8 +202,10 @@ public class UsuarioController {
 
 	@PostMapping("/alterar-transferencia")
 	public String alterarTransferencia(Transferencia transferencia) {
-		Transferencia transferencia1 = transferenciaService.alteraTransferencia(transferencia);
-		return "redirect:/usuario/alterar-malote/" + transferencia1.getMalote().getId();
+		long maloteId = transferencia.getMalote().getId();
+		transferencia.setMalote(null);
+		transferenciaService.alteraTransferencia(transferencia);
+		return "redirect:/usuario/alterar-malote/" + maloteId;
 	}
 
 	@GetMapping("/nova-transferencia/{maloteId}")

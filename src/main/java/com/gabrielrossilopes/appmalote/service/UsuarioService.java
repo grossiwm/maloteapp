@@ -17,7 +17,7 @@ public class UsuarioService {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("${api.usuario.root}")
+    @Value("${maloteapi.usuario.root}")
     private String apiRoot;
 
 

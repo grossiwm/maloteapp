@@ -20,6 +20,9 @@ public class Transferencia extends Transacao {
 
 	private BigDecimal valor;
 
+	public Transferencia() {
+	}
+
 	public Long getId() {
 		return id;
 	}

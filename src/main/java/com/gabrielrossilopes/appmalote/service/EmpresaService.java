@@ -21,7 +21,7 @@ public class EmpresaService {
 	@Autowired
 	private RestTemplate restTemplate;
 
-	@Value("${api.empresa.root}")
+	@Value("${maloteapi.empresa.root}")
 	private String apiRoot;
 
 	public List<Empresa> buscaTodasOrdenado() {

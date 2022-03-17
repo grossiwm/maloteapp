@@ -1,48 +1,72 @@
 package com.gabrielrossilopes.appmalote.service;
 
-import com.gabrielrossilopes.appmalote.model.dominio.Transferencia;
-import org.springframework.stereotype.Service;
 
+import com.gabrielrossilopes.appmalote.model.dominio.Empresa;
+import com.gabrielrossilopes.appmalote.model.dominio.Transferencia;
+import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
+import com.gabrielrossilopes.appmalote.session.UsuarioLogadoSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TransferenciaService {
 
 
-    public List<Transferencia> getAllTransferencia() {
-//        if (usuarioLogadoSession.isAdmin())
-//            return transferenciaRepository.findAll().stream().sorted(Comparator.comparing(Transferencia::getContaOrigem)).toList();
-//
-//        Usuario usuario = usuarioRepository.getById(usuarioLogadoSession.getId());
-//        Empresa empresa = usuario.getEmpresa();
-//        return transferenciaRepository.findAll().stream().filter(d -> d.getMalote().getEmpresa().equals(empresa))
-//                .sorted(Comparator.comparing(Transferencia::getContaOrigem)).toList();
+    @Autowired
+    private RestTemplate restTemplate;
 
-        return null;
+    @Value("${maloteapi.transferencia.root}")
+    private String api;
+
+    @Autowired
+    private UsuarioLogadoSession usuarioLogadoSession;
+
+    @Autowired
+    private UsuarioService usuarioService;
+
+
+    public List<Transferencia> getAllTransferencia() {
+
+        try {
+
+            if (usuarioLogadoSession.isAdmin()) {
+                return List.of(Objects.requireNonNull(restTemplate.getForObject(api, Transferencia[].class)));
+            }
+
+                Usuario usuario = usuarioService.getUsuarioById(usuarioLogadoSession.getId());
+                Empresa empresa = usuario.getEmpresa();
+                Transferencia[] transferenciasArr =
+                        restTemplate.getForObject(api.concat("/by-empresa/") + empresa.getId(), Transferencia[].class);
+                assert transferenciasArr != null;
+                return List.of(transferenciasArr);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new ArrayList<>();
+            }
+
     }
 
     public Transferencia buscaPorId(Long id) {
-//        return transferenciaRepository.getById(id);
-        return null;
+        return restTemplate.getForObject(api.concat("/") + id, Transferencia.class);
     }
 
     public Transferencia salvaTransferencia(Transferencia transferencia) {
-//        return transferenciaRepository.save(transferencia);
-        return null;
+        return restTemplate.postForObject(api, transferencia, Transferencia.class);
     }
 
-    public Transferencia alteraTransferencia(Transferencia transferenciaReq) {
-//        Long id = transferenciaReq.getId();
-//        transferenciaReq.setId(null);
-//        Transferencia transferencia = transferenciaRepository.getById(id);
-//        transferencia.setValor(transferenciaReq.getValor());
-//        transferencia.setContaDestino(transferenciaReq.getContaDestino());
-//        transferencia.setContaOrigem(transferenciaReq.getContaOrigem());
-//        return transferenciaRepository.save(transferencia);
-        return null;
+    public Transferencia alteraTransferencia(Transferencia transferencia) {
+
+        return restTemplate.patchForObject(api, transferencia, Transferencia.class);
     }
 
     public void removeTransferencia(Transferencia transferencia) {
-//        transferenciaRepository.delete(transferencia);
+        restTemplate.delete(api.concat("/") + transferencia.getId());
     }
 }
