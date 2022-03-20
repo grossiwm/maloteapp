@@ -1,5 +1,6 @@
 package com.gabrielrossilopes.appmalote.service;
 
+import com.gabrielrossilopes.appmalote.exception.PossuiDependenciasException;
 import com.gabrielrossilopes.appmalote.model.dominio.Empresa;
 import com.gabrielrossilopes.appmalote.model.dominio.Malote;
 import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
@@ -7,6 +8,7 @@ import com.gabrielrossilopes.appmalote.session.UsuarioLogadoSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -32,7 +34,7 @@ public class MaloteService {
     }
 
     public Malote getById(Long id) {
-        return restTemplate.getForObject(api, Malote.class);
+        return restTemplate.getForObject(api.concat("/") + id, Malote.class);
     }
 
     public List<Malote> buscaTodos() {
@@ -49,8 +51,14 @@ public class MaloteService {
         return List.of(malotesArr);
     }
 
-    public void removeMalote(Malote malote) {
-        restTemplate.delete(api.concat("/") + malote.getId());
+    public void removeMalote(Malote malote)  throws PossuiDependenciasException {
+        try {
+            restTemplate.delete(api.concat("/") + malote.getId());
+        } catch (HttpClientErrorException e) {
+            int statusCode = e.getStatusCode().value();
+            if (statusCode == 418)
+                throw new PossuiDependenciasException("Este malote possui dependências e não pôde ser excluído");
+        }
     }
 
 }

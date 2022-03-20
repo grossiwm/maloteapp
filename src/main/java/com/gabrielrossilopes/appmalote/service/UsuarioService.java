@@ -1,10 +1,12 @@
 package com.gabrielrossilopes.appmalote.service;
 
 import com.gabrielrossilopes.appmalote.dto.UsuarioDTO;
+import com.gabrielrossilopes.appmalote.exception.PossuiDependenciasException;
 import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -44,8 +46,14 @@ public class UsuarioService {
 
     }
 
-    public void removeUsuario(Usuario usuario) {
-        restTemplate.delete(apiRoot.concat("/") + usuario.getId());
+    public void removeUsuario(Usuario usuario) throws PossuiDependenciasException {
+        try {
+            restTemplate.delete(apiRoot.concat("/") + usuario.getId());
+        } catch (HttpClientErrorException e) {
+            int status = e.getStatusCode().value();
+            if (status == 418)
+                throw new PossuiDependenciasException("Este usuário possui dependências e não pôde ser deletado");
+        }
     }
 
     public Optional<UsuarioDTO> autenticar(String email, String senha) {

@@ -1,6 +1,7 @@
 package com.gabrielrossilopes.appmalote.controller;
 
 import com.gabrielrossilopes.appmalote.dto.UsuarioDTO;
+import com.gabrielrossilopes.appmalote.exception.PossuiDependenciasException;
 import com.gabrielrossilopes.appmalote.model.dominio.*;
 import com.gabrielrossilopes.appmalote.service.*;
 import com.gabrielrossilopes.appmalote.session.UsuarioLogadoSession;
@@ -39,6 +40,9 @@ public class UsuarioController {
 
 	@Autowired
 	private TransferenciaService transferenciaService;
+
+	@Autowired
+	private TransacaoService transacaoService;
 
 	@GetMapping("/")
 	public String index() {
@@ -114,8 +118,9 @@ public class UsuarioController {
 
 	@PostMapping("/alterar-deposito")
 	public String alterarDeposito(Deposito deposito) {
-		Deposito deposito1 = depositoService.alteraDeposito(deposito);
-		return "redirect:/usuario/alterar-malote/" + deposito1.getMalote().getId();
+		long depositoId = deposito.getId();
+		depositoService.alteraDeposito(deposito);
+		return "redirect:/usuario/alterar-malote/" + depositoId;
 	}
 
 	@GetMapping("/novo-deposito/{maloteId}")
@@ -142,9 +147,16 @@ public class UsuarioController {
 		return "redirect:/usuario/alterar-malote/" + deposito.getMalote().getId();
 	}
 
+	@GetMapping("/listar-transacoes")
+	public String listarTransacoes(Model model) {
+		List<Transacao> transacaos = transacaoService.getAllTransacao();
+		model.addAttribute("transacoes", transacaos);
+		return "listarTransacoes";
+	}
+
 	@GetMapping("/listar-pagamentos")
 	public String listarPagamentos(Model model) {
-		List<Pagamento> pagamentos = pagamentoService.getAllPagamentos().stream().sorted(Comparator.comparing(Pagamento::getCnpjRecebedor)).toList();
+		List<Pagamento> pagamentos = pagamentoService.getAllPagamentos();
 		model.addAttribute("pagamentos", pagamentos);
 		return "listarPagamentos";
 	}
@@ -203,7 +215,6 @@ public class UsuarioController {
 	@PostMapping("/alterar-transferencia")
 	public String alterarTransferencia(Transferencia transferencia) {
 		long maloteId = transferencia.getMalote().getId();
-		transferencia.setMalote(null);
 		transferenciaService.alteraTransferencia(transferencia);
 		return "redirect:/usuario/alterar-malote/" + maloteId;
 	}
@@ -248,8 +259,13 @@ public class UsuarioController {
 		Malote malote = maloteService.getById(id);
 		model.addAttribute("malote", malote);
 		model.addAttribute("dataCriacao", DataUtils.dataFormatada(malote.getData()));
-		List<Deposito> depositos = depositoService.getAllDepositos();
-		model.addAttribute("depositos", depositos);
+		List<Deposito> depositos = depositoService.getAllDepositosByMalote(id);
+		List<Pagamento> pagamentos = pagamentoService.getAllPagamentosByMalote(id);
+		List<Transferencia> transferencias = transferenciaService.getAllTransferenciaByMalote(id);
+		malote.setDepositos(depositos);
+		malote.setPagamentos(pagamentos);
+		malote.setTransferencias(transferencias);
+		model.addAttribute("malote", malote);
 		return "alterarMalote";
 	}
 
@@ -278,8 +294,12 @@ public class UsuarioController {
 	@GetMapping("/remove-malote/{id}")
 	public String removeMalotes(Model model, @PathVariable Long id, RedirectAttributes redirectAttributes) {
 		Malote malote = maloteService.getById(id);
-
-		maloteService.removeMalote(malote);
+		try {
+			maloteService.removeMalote(malote);
+		} catch (PossuiDependenciasException e) {
+			String mensagem = e.getMessage();
+			return "redirect:/usuario/listar-malotes?aviso=" + mensagem;
+		}
 
 		return "redirect:/usuario/listar-malotes";
 	}

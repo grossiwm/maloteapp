@@ -48,7 +48,7 @@ method='POST'>
         <c:if test = "${deposito.id != null}">
         <tr>
             <td><a href="/usuario/alterar-malote/<c:out value='${deposito.malote.id}' />">ver malote</a></td>
-            <input type='hidden' name='maloteId' value="<c:out value='${deposito.malote.id}' />">
+            <input type='hidden' name='malote.id' value="<c:out value='${deposito.malote.id}' />">
         </tr>
         </c:if>
         <tr>

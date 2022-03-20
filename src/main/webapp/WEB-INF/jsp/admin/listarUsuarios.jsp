@@ -23,6 +23,7 @@
         <td>Nome: <c:out value="${usuario.nome}"/></td>
         <td>Email: <c:out value="${usuario.email}"/></td>
         <td>Empresa: <c:out value="${usuario.empresa.nome}"/></td>
+        <td>Número de Malotes: <c:out value="${usuario.quantidadeMalotes}"/></td>
         <c:if test = "${usuarioLogado.isAdmin()}">
             <td><a href="/admin/editar-usuario/<c:out value="${usuario.id}"/>">Editar</a></td>
             <td><a href="/admin/remove-usuario/<c:out value="${usuario.id}"/>">Remover</a></td>

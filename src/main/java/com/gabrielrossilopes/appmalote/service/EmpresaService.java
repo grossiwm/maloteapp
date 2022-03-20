@@ -1,15 +1,12 @@
 package com.gabrielrossilopes.appmalote.service;
 
 import com.gabrielrossilopes.appmalote.dto.EmpresaDTO;
+import com.gabrielrossilopes.appmalote.exception.PossuiDependenciasException;
 import com.gabrielrossilopes.appmalote.model.dominio.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -45,7 +42,13 @@ public class EmpresaService {
 		restTemplate.postForObject(apiRoot, empresaDTO, Empresa.class);
 	}
 
-	public void removeEmpresa(Empresa empresa) {
-		restTemplate.delete(apiRoot.concat("/") + empresa.getId());
+	public void removeEmpresa(Empresa empresa) throws PossuiDependenciasException {
+		try {
+			restTemplate.delete(apiRoot.concat("/") + empresa.getId());
+		} catch (HttpClientErrorException e) {
+			int statusCode = e.getStatusCode().value();
+			if (statusCode == 418)
+				throw new PossuiDependenciasException("Esta empresa possui dependências e não pôde ser deletada");
+		}
 	}
 }

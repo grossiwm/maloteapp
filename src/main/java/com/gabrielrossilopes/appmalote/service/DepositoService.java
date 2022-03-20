@@ -1,49 +1,61 @@
 package com.gabrielrossilopes.appmalote.service;
 
 import com.gabrielrossilopes.appmalote.model.dominio.Deposito;
+import com.gabrielrossilopes.appmalote.model.dominio.Empresa;
+import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
+import com.gabrielrossilopes.appmalote.session.UsuarioLogadoSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class DepositoService {
 
 
+    @Autowired
+    private UsuarioLogadoSession usuarioLogadoSession;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @Value("${maloteapi.deposito.root}")
+    private String api;
+
     public List<Deposito> getAllDepositos() {
-//        if (usuarioLogadoSession.isAdmin())
-//            return depositoRepository.findAll().stream().sorted(Comparator.comparing(Deposito::getNomeBeneficiario)).toList();
-//
-//        Usuario usuario = usuarioRepository.getById(usuarioLogadoSession.getId());
-//        Empresa empresa = usuario.getEmpresa();
-//        return depositoRepository.findAll().stream().filter(d -> d.getMalote().getEmpresa().equals(empresa))
-//                .sorted(Comparator.comparing(Deposito::getNomeBeneficiario)).toList();
-        return null;
+        if (usuarioLogadoSession.isAdmin())
+            return List.of(Objects.requireNonNull(restTemplate.getForObject(api, Deposito[].class)));
+
+        Usuario usuario = usuarioService.getUsuarioById(usuarioLogadoSession.getId());
+        Empresa empresa = usuario.getEmpresa();
+        return List.of(Objects.requireNonNull(restTemplate.getForObject(api.concat("/by-empresa/") + empresa.getId(), Deposito[].class)));
+    }
+
+    public List<Deposito> getAllDepositosByMalote(Long maloteId) {
+        return List.of(Objects.requireNonNull(restTemplate.getForObject(api.concat("/by-malote/") + maloteId, Deposito[].class)));
     }
 
     public Deposito salvaDeposito(Deposito deposito) {
-//        return depositoRepository.save(deposito);
-        return null;
+        return restTemplate.postForObject(api, deposito, Deposito.class);
     }
 
-    public Deposito alteraDeposito(Deposito depositoReq) {
-//        Long id = depositoReq.getId();
-//        depositoReq.setId(null);
-//        Deposito deposito = depositoRepository.getById(id);
-//        deposito.setNomeBeneficiario(depositoReq.getNomeBeneficiario());
-//        deposito.setCpfBeneficiario(depositoReq.getCpfBeneficiario());
-//        deposito.setValor(depositoReq.getValor());
-//        depositoRepository.save(deposito);
-//        return deposito;
-        return null;
+    public Deposito alteraDeposito(Deposito deposito) {
+        deposito.setMalote(null);
+        return restTemplate.patchForObject(api, deposito, Deposito.class);
     }
 
     public Deposito buscaPorId(Long id) {
-//        return depositoRepository.getById(id);
-        return null;
+        return restTemplate.getForObject(api.concat("/") + id, Deposito.class);
     }
 
 
     public void removeDeposito(Deposito deposito) {
-//        depositoRepository.delete(deposito);
+        restTemplate.delete(api.concat("/") + deposito.getId());
     }
 }

@@ -21,6 +21,16 @@ public class Usuario {
 
 	private Boolean aceito;
 
+	public int getQuantidadeMalotes() {
+		return quantidadeMalotes;
+	}
+
+	public void setQuantidadeMalotes(int quantidadeMalotes) {
+		this.quantidadeMalotes = quantidadeMalotes;
+	}
+
+	private int quantidadeMalotes;
+
 	public String getNome() {
 		return nome;
 	}

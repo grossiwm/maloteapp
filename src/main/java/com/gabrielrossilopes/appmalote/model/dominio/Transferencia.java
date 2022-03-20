@@ -1,51 +1,16 @@
 package com.gabrielrossilopes.appmalote.model.dominio;
 
 import com.gabrielrossilopes.appmalote.model.enums.TipoTransacao;
-import com.gabrielrossilopes.appmalote.model.enums.TransacaoStatus;
-
-import java.math.BigDecimal;
 
 public class Transferencia extends Transacao {
 
 	private String contaDestino;
 	private String contaOrigem;
 
-	public BigDecimal getValor() {
-		return valor;
-	}
-
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
-	}
-
-	private BigDecimal valor;
-
 	public Transferencia() {
+		super();
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	private Long id;
-
-	public Malote getMalote() {
-		return malote;
-	}
-
-	public void setMalote(Malote malote) {
-		this.malote = malote;
-	}
-
-	public void setStatus(TransacaoStatus status) {
-		this.status = status;
-	}
-
-	private Malote malote;
 
 	public String getContaDestino() {
 		return contaDestino;

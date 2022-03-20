@@ -2,7 +2,6 @@ package com.gabrielrossilopes.appmalote.filter;
 
 import com.gabrielrossilopes.appmalote.session.UsuarioLogadoSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 

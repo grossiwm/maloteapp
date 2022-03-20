@@ -22,7 +22,6 @@
         <td>Id: <c:out value="${m.id}"/></td>
         <td>Empresa: <c:out value="${m.empresa.nome}"/></td>
         <td>Usuario: <c:out value="${m.usuario.nome}"/></td>
-        <td>Valor total: <c:out value="${m.valorTotal}"/></td> </td>
         <td><a href="/usuario/alterar-malote/<c:out value="${m.id}"/>">Editar</a></td>
         <td><a href="/usuario/remove-malote/<c:out value="${m.id}"/>">Remover</a></td>
 

@@ -2,6 +2,7 @@ package com.gabrielrossilopes.appmalote.controller;
 
 import com.gabrielrossilopes.appmalote.dto.EmpresaDTO;
 import com.gabrielrossilopes.appmalote.dto.UsuarioDTO;
+import com.gabrielrossilopes.appmalote.exception.PossuiDependenciasException;
 import com.gabrielrossilopes.appmalote.model.dominio.Empresa;
 import com.gabrielrossilopes.appmalote.model.dominio.Usuario;
 import com.gabrielrossilopes.appmalote.service.EmpresaService;
@@ -90,8 +91,13 @@ public class AdminController {
 	@GetMapping("/remove-usuario/{id}")
 	public String excluirUsuario(@PathVariable Long id, RedirectAttributes redirectAttributes) {
 		Usuario usuario = usuarioService.getUsuarioById(id);
-			usuarioService.removeUsuario(usuario);
 
+		try {
+			usuarioService.removeUsuario(usuario);
+		} catch (PossuiDependenciasException e) {
+			String mensagem = e.getMessage();
+			return "redirect:/admin/listar-usuarios?aviso=" + mensagem;
+		}
 		return "redirect:/admin/listar-usuarios";
 	}
 
@@ -158,7 +164,12 @@ public class AdminController {
 	@GetMapping("/remove-empresa/{id}")
 	public String excluirEmpresa(@PathVariable Long id, RedirectAttributes redirectAttributes) {
 		Empresa empresa = empresaService.buscaPorId(id);
-		empresaService.removeEmpresa(empresa);
+		try {
+			empresaService.removeEmpresa(empresa);
+		} catch (PossuiDependenciasException e) {
+			String mensagem = e.getMessage();
+			return "redirect:/admin/listar-empresas?aviso=" + mensagem;
+		}
 
 		return "redirect:/admin/listar-empresas";
 	}

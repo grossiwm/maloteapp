@@ -59,9 +59,12 @@ public class Malote {
 
 	private BigDecimal somaTransacoes() {
 		List<Transacao> transacoes = new ArrayList<>();
-		transacoes.addAll(depositos);
-		transacoes.addAll(transferencias);
-		transacoes.addAll(pagamentos);
+		if (depositos != null)
+			transacoes.addAll(depositos);
+		if (transferencias != null)
+			transacoes.addAll(transferencias);
+		if (pagamentos != null)
+			transacoes.addAll(pagamentos);
 
 		return transacoes.stream().map(Transacao::getValor)
 				.reduce(BigDecimal.ZERO, BigDecimal::add);

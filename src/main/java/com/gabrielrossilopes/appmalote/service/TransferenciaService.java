@@ -39,18 +39,22 @@ public class TransferenciaService {
                 return List.of(Objects.requireNonNull(restTemplate.getForObject(api, Transferencia[].class)));
             }
 
-                Usuario usuario = usuarioService.getUsuarioById(usuarioLogadoSession.getId());
-                Empresa empresa = usuario.getEmpresa();
-                Transferencia[] transferenciasArr =
-                        restTemplate.getForObject(api.concat("/by-empresa/") + empresa.getId(), Transferencia[].class);
-                assert transferenciasArr != null;
-                return List.of(transferenciasArr);
+            Usuario usuario = usuarioService.getUsuarioById(usuarioLogadoSession.getId());
+            Empresa empresa = usuario.getEmpresa();
+            Transferencia[] transferenciasArr =
+                    restTemplate.getForObject(api.concat("/by-empresa/") + empresa.getId(), Transferencia[].class);
+            assert transferenciasArr != null;
+            return List.of(transferenciasArr);
 
             } catch (Exception e) {
                 e.printStackTrace();
                 return new ArrayList<>();
             }
 
+    }
+
+    public List<Transferencia> getAllTransferenciaByMalote(Long maloteId) {
+        return List.of(Objects.requireNonNull(restTemplate.getForObject(api.concat("/by-malote/") + maloteId, Transferencia[].class)));
     }
 
     public Transferencia buscaPorId(Long id) {
@@ -62,7 +66,7 @@ public class TransferenciaService {
     }
 
     public Transferencia alteraTransferencia(Transferencia transferencia) {
-
+        transferencia.setMalote(null);
         return restTemplate.patchForObject(api, transferencia, Transferencia.class);
     }
 

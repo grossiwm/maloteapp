@@ -15,6 +15,16 @@ public class Empresa {
 	
 	private List<Usuario> usuarios;
 
+	public int getQuantidadeMalotes() {
+		return quantidadeMalotes;
+	}
+
+	public void setQuantidadeMalotes(int quantidadeMalotes) {
+		this.quantidadeMalotes = quantidadeMalotes;
+	}
+
+	private int quantidadeMalotes;
+
 	public Empresa() {
 		malotes = new ArrayList<>();
 	}
