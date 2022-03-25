@@ -15,6 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/usuario")
@@ -119,8 +121,8 @@ public class UsuarioController {
 	@PostMapping("/alterar-deposito")
 	public String alterarDeposito(Deposito deposito) {
 		long depositoId = deposito.getId();
-		depositoService.alteraDeposito(deposito);
-		return "redirect:/usuario/alterar-malote/" + depositoId;
+		long maloteId = depositoService.alteraDeposito(deposito).getMalote().getId();
+		return "redirect:/usuario/alterar-malote/" + maloteId;
 	}
 
 	@GetMapping("/novo-deposito/{maloteId}")
@@ -286,8 +288,7 @@ public class UsuarioController {
 	public String listaMalotes(Model model, @RequestParam(required = false) String aviso) {
 		List<Malote> malotes = maloteService.buscaTodos();
 		model.addAttribute("malotes", malotes);
-		model.addAttribute("aviso", aviso);
-
+		model.addAttribute("aviso", (Objects.isNull(aviso) ? null : "Este malote possui dependências e não pôde ser excluído"));
 		return "listarMalotes";
 	}
 

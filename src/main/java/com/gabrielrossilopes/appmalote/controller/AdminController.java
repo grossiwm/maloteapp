@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/admin")
@@ -55,7 +56,7 @@ public class AdminController {
 	public String listarUsuarios(Model model, @RequestParam(required = false) String aviso) {
 		List<Usuario> usuarios = usuarioService.busucaTodos();
 		model.addAttribute("usuarios", usuarios);
-		model.addAttribute("aviso", aviso);
+		model.addAttribute("aviso", (Objects.isNull(aviso) ? null : "Este usuário possui dependências e não pôde ser excluído"));
 		return "admin/listarUsuarios";
 	}
 
@@ -119,7 +120,7 @@ public class AdminController {
 	public String listarEmpresas(Model model, @RequestParam(required = false) String aviso) {
 		List<Empresa> empresas = empresaService.buscaTodasOrdenado();
 		model.addAttribute("empresas", empresas);
-		model.addAttribute("aviso", aviso);
+		model.addAttribute("aviso", (Objects.isNull(aviso) ? null : "Esta empresa possui dependências e não pôde ser excluída"));
 		return "admin/listarEmpresas";
 	}
 
