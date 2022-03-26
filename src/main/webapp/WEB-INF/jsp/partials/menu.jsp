@@ -35,6 +35,9 @@
                         <a class="nav-link active" aria-current="page" href="/usuario/listar-depositos">Depósitos</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/usuario/listar-transacoes">Transações</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
                 </c:if>

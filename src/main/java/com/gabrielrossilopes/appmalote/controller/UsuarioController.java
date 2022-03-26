@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/usuario")
@@ -251,9 +250,7 @@ public class UsuarioController {
 		Malote malote = new Malote();
 		malote.setEmpresa(usuario.getEmpresa());
 		malote.setUsuario(usuario);
-		maloteService.salvaMalote(malote);
-
-		return "redirect:/usuario/alterar-malote/" + malote.getId();
+		return "redirect:/usuario/alterar-malote/" + maloteService.salvaMalote(malote).getId();
 	}
 
 	@GetMapping("/alterar-malote/{id}")

@@ -17,7 +17,7 @@
         <c:if test = "${t.malote != null}">
             <td>Malote: <c:out value="${t.malote.id}"/></td>
         </c:if>
-        <td><a href="/usuario/alterar-malote/<c:out value='${t.malote.id}' />">Ver malote /></a></td>
+        <td><a href="/usuario/alterar-malote/<c:out value='${t.malote.id}' />">Ver malote </a></td>
     </tr>
 </c:forEach>
 </table>

@@ -30,7 +30,7 @@ public class MaloteService {
     private String api;
 
     public Malote salvaMalote(Malote malote) {
-        return null;
+        return restTemplate.postForObject(api, malote, Malote.class);
     }
 
     public Malote getById(Long id) {
